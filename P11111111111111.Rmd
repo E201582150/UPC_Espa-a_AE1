@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 library(readr) 
 library(stringr) 
 
@@ -48,15 +48,21 @@ library(stringr)
 
 **Explica con detalle cómo se podría proceder al análisis y resolución del problema mediante Data Science, indicando de donde se obtendrían los datos, qué tratamiento deberían recibir, qué preguntas hacerse para resolver el problema, qué datos y gráficos se obtendrían, y cómo se comunicarían estos.**
 
+Para abordar el escenario planteado mediante Data Science, se propone un análisis basado en los registros históricos de conexiones TCP salientes de los equipos corporativos, dado que la actividad sospechosa podría haber finalizado. Estos registros, obtenidos de sistemas operativos, firewalls o herramientas de monitorización de red, permitirían analizar direcciones IP, puertos utilizados y marcas temporales de las conexiones.
+Los datos recolectados deben ser sometidos a un proceso de limpieza y preprocesamiento, eliminando registros incompletos y enriqueciendo la información mediante la identificación de puertos autorizados, rangos de IP legítimos de clientes y horarios habituales de trabajo. Este tratamiento facilita la identificación de comportamientos atípicos.
+El análisis se orienta a responder preguntas como: qué equipos establecieron conexiones asociadas a servicios no autorizados, si existen patrones temporales anómalos y si las direcciones IP externas corresponden a ubicaciones habituales del negocio. Para ello, pueden aplicarse técnicas de análisis exploratorio y detección de anomalías, con el fin de reducir el conjunto de posibles equipos implicados.
+Los resultados se presentarían mediante visualizaciones simples, como distribuciones de uso de puertos o series temporales de conexiones, y se comunicarían de forma objetiva y preventiva, destacando los riesgos observados y reforzando la importancia del cumplimiento de las políticas de seguridad, sin adoptar un enfoque acusatorio.
+
+
 # INTRODUCCION A R
 
 ## PREGUNTA 1
 
 1.  **Cuáles son las dimensiones del dataset cargado (número de filas y columnas)**
 
-```{r Pregunta1a, echo=FALSE}
+```{r Pregunta1a, echo=FALSE, warning=FALSE, error=FALSE}
 # Leemos el archivo CSV
-epa_http <- read_table("epa-http.csv", col_names = FALSE)
+epa_http <- read_table("epa-http.csv", col_names = FALSE, show_col_types = F)
 
 # CAMBIO NOMBRE COLUMNAS
 colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo", "Bytes")
