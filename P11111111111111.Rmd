@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = TRUE)
 library(readr) 
 library(stringr) 
 
@@ -14,7 +14,7 @@ library(stringr)
 
 
 
-## Paso P1
+## Paso P1 
 ```{r Pregunta1, echo=FALSE}
 
 print("1.	Cuáles son las dimensiones del dataset cargado (número de filas y columnas)")
@@ -36,12 +36,6 @@ print("Primero se sincronizo el archivo “csv” en github, luego se importo el
 print("Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes")
 
 
-```
-
-
-## Paso P2
-```{r Pregunta2, echo=FALSE}
-
 print("2.	2.	Valor medio de la columna Bytes Consejo: probad distintos parámetros para las funciones de carga de datos o directamente usad el asistente visual de RStudio para cargar datos en el panel de Entorno (Environment)")
 
 print("Leemos el archivo CSV")
@@ -50,55 +44,29 @@ library(readr)
 
 library(stringr) 
 
- 
-
 data <- read_lines("epa-http.csv") 
 
- 
-
 log_data <- str_match( 
-
     data, 
-
     '(\\S+) \\[(.*?)\\] "(\\S+) (.*?) (\\S+)" (\\d{3}) (\\S+)' 
 
 ) 
 
- 
-
 df <- data.frame( 
-
     IP = log_data[,2], 
-
     Timestamp = log_data[,3], 
-
     Metodo = log_data[,4], 
-
     URL = log_data[,5], 
-
     Protocolo = log_data[,6], 
-
     Codigo = log_data[,7], 
-
     Bytes = log_data[,8] 
 
 ) 
 
- 
-
 df$Bytes[df$Bytes == "-"] <- NA 
-
 df$Bytes <- as.numeric(df$Bytes) 
-
- 
-
 dim(df) 
-
- 
-
 mean(df$Bytes, na.rm = TRUE) 
-
-
 print("El valor promedio es 7352.335, primero realizamos una conversion de datos porque la columna size era texto.")
 
 
@@ -107,8 +75,8 @@ print("El valor promedio es 7352.335, primero realizamos una conversion de datos
 
 
 
-## Paso P3
-```{r Pregunta3, echo=FALSE}
+## Paso P2
+```{r Pregunta2, echo=FALSE}
 library(stringr) 
 
 # Identificar IPs educativas 
@@ -125,6 +93,37 @@ print("Primero filtramos los dominios .edu y los almacenamos en la variable ips_
 ```
 
 
+## Paso P3
+```{r Pregunta3, echo=FALSE}
+print("De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET?")
+
+# Filtrar peticiones GET 
+get_requests <- df[df$Metodo == "GET", ] 
+
+# Extraer hora del timestamp 
+hora <- str_split_fixed(get_requests$Timestamp, ":", 4)[,2] 
+
+# Convertir a número 
+hora <- as.numeric(hora) 
+
+# Contar peticiones por hora 
+tabla_horas <- table(hora) 
+
+# Hora con más peticiones 
+which.max(tabla_horas) 
+
+
+print("la Hora con mayor peticiones es 2pm")
+tabla_horas <- table(hora) 
+
+print("la camtidad de peticiones es")
+which.max(tabla_horas)
+
+
+
+
+
+```
 
 ## Paso P4
 ```{r Pregunta4, echo=FALSE}
@@ -184,6 +183,7 @@ print(" Se utiliza la función sum() para contar cuántos valores son TRUE. ")
 print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
 print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
 
+print("Se buscan directamente la URL ")
 sum(df$URL == "/", na.rm = TRUE)
 
 ```
