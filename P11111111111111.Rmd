@@ -165,26 +165,17 @@ datos_filtrados <- epa_http[edu_filter & txt_filter, ]
 sum(datos_filtrados$Bytes, na.rm = TRUE) 
 ```
 
-## Paso P5
+## PREGUNTA 5
 
 ```{r Pregunta5, echo=FALSE}
-
-print("¿Cuántas peticiones buscan directamente la URL /? ")
-
-
-print("Se analiza la columna URL del dataset. ")
-print("Se compara cada valor con la cadena /, que representa la raíz del servidor web.")
-print("El resultado es un vector lógico ")
-print("TRUE FALSE FALSE TRUE ... ")
-print(" Se utiliza la función sum() para contar cuántos valores son TRUE. ")
-
-print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
-print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
-
-print("Se buscan directamente la URL ")
-sum(epa_http$URL == "/", na.rm = TRUE)
-
+respuesta5 <- sum(epa_http$URL == "/", na.rm = TRUE)
 ```
+5. **Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?**
+
+<p style="margin-left: 40px;color: blue;">
+Hay **`r respuesta5`** peticiones que buscan la URL = "/"?.
+</p>
+
 
 ## Paso P6
 
