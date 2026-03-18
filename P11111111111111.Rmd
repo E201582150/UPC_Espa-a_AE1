@@ -1,6 +1,6 @@
 ---
-title: "P1"
-author: "Bruno"
+title: "Actividad 1"
+author: "Depaz Cribillero, Cesar; Castillo Pintado, Jaime, Rivas Tucto, Jerson; Somoza Buitron, Bruno"
 date: "2026-03-18"
 output: html_document
 ---
