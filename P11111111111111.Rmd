@@ -126,12 +126,9 @@ which.max(tabla_horas)
 
 
 
-## Paso P4
+## PREGUNTA 4
 
-```{r Pregunta4, echo=FALSE}
-
-print(" De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ")
-
+```{r Pregunta4, echo=FALSE, warning=FALSE, error=FALSE}
 
 # Filtrar IP educativas 
 edu_filter <- str_detect(epa_http$IP, "\\.edu") 
@@ -143,16 +140,10 @@ txt_filter <- str_detect(epa_http$URL, "\\.txt$")
 datos_filtrados <- epa_http[edu_filter & txt_filter, ] 
 
 # Sumar bytes 
-sum(datos_filtrados$Bytes, na.rm = TRUE) 
-
-
-print(" Primero obtenemos las peticiones GET, luego extraemos la hora de la columna Timestamp y obtenemos la cantidad de hores ")
-
-print(" Primero filtramos los dominios .edu, luego filtramos los archivos de texto, tambien unimos las 2 tablas en la variable datos_filtrados para obtener la suma de la columna Bytes ")
+#sumarespuesta4 <- sum(datos_filtrados$Bytes, na.rm = TRUE) 
 
 # Filtrar IP educativas 
 edu_filter <- str_detect(epa_http$IP, "\\.edu") 
-
 
 # Filtrar archivos txt 
 txt_filter <- str_detect(epa_http$URL, "\\.txt$") 
@@ -160,10 +151,15 @@ txt_filter <- str_detect(epa_http$URL, "\\.txt$")
 # Aplicar ambos filtros 
 datos_filtrados <- epa_http[edu_filter & txt_filter, ] 
 
- 
 # Sumar bytes 
-sum(datos_filtrados$Bytes, na.rm = TRUE) 
+respuesta4 <- sum(datos_filtrados$Bytes, na.rm = TRUE)/1024
 ```
+
+4. **De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?**
+
+<p style="margin-left: 40px;color: blue;">
+Se han transmitido **`r respuesta4`** bytes de descarga de ficheros.
+</p>
 
 ## PREGUNTA 5
 
