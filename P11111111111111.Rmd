@@ -94,10 +94,12 @@ unicas_edu <- length(unique(ips_edu))
 
 Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu luego hacemos un filtro para almacenar los dominios publicos en la variabe ips_edu para pasarle como parametro a la funcion length y obtener **`r unicas_edu`** como resultado.
 
-## Paso P3
+## PREGUNTA 3
+
+
+3. **¿De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET? **
 
 ```{r Pregunta3, echo=FALSE}
-print("De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET?")
 
 # Filtrar peticiones GET 
 get_requests <- epa_http[epa_http$Metodo == "GET", ] 
@@ -121,6 +123,8 @@ tabla_horas <- table(hora)
 print("la camtidad de peticiones es")
 which.max(tabla_horas)
 ```
+
+
 
 ## Paso P4
 
@@ -204,4 +208,7 @@ total_peticiones_no_http02
 
 print("Se Finalizo los ejercicios")
 
+
+
 ```
+**`r total_peticiones_no_http02`** no tienen peticiones http02.
