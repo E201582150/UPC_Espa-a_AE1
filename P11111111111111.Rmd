@@ -15,110 +15,79 @@ library(stringr)
 # DATA SCIENCE
 
 ## PREGUNTA 1
-De las siguientes preguntas, clasifica cada una como descriptiva, exploratoria, inferencia, predictiva o causal, y razona brevemente (una frase) el porqué: 
 
-1.  Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?  
+De las siguientes preguntas, clasifica cada una como descriptiva, exploratoria, inferencia, predictiva o causal, y razona brevemente (una frase) el porqué:
 
-> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas. 
+1.  Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
-2. Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?  
+> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas.
 
-> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada. 
+2.  Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
 
-3. Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía?  
+> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.
 
-> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.  
+3.  Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía?
 
-4. Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos? 
+> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.
 
-> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida. 
+4.  Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos?
 
+> En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.
 
-## Paso P1 
+## PREGUNTA 2
+
+Considera el siguiente escenario:
+
+Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.
+
+Explica con detalle cómo se podría proceder al análisis y resolución del problema mediante Data Science, indicando de donde se obtendrían los datos, qué tratamiento deberían recibir, qué preguntas hacerse para resolver el problema, qué datos y gráficos se obtendrían, y cómo se comunicarían estos.
+
+# INTRODUCCION A R
+
+## PREGUNTA 1
+
+1.  Cuáles son las dimensiones del dataset cargado (número de filas y columnas)
+
 ```{r Pregunta1, echo=FALSE}
-
-print("1.	Cuáles son las dimensiones del dataset cargado (número de filas y columnas)")
- 
-print("Leemos el archivo CSV")
+# Leemos el archivo CSV
 epa_http <- read_table("epa-http.csv", col_names = FALSE)
 
+# CAMBIO NOMBRE COLUMNAS
 colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo", "Bytes")
-epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
 
+# Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes")
+epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
 epa_http$Bytes <- as.numeric(epa_http$Bytes) 
 
 dim(epa_http) 
 
 mean(epa_http$Bytes, na.rm = TRUE) 
-print("Se asigno las etiquetas")
-
-print("Primero se sincronizo el archivo “csv” en github, luego se importo el archivo identificando 7 columnas (X1, X2 hasta X7), posterior a ello se cambio el nombre de las columnas con el siguiente código")
-print("Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes")
-
-
-print("2.	2.	Valor medio de la columna Bytes Consejo: probad distintos parámetros para las funciones de carga de datos o directamente usad el asistente visual de RStudio para cargar datos en el panel de Entorno (Environment)")
-
-print("Leemos el archivo CSV")
-
-library(readr) 
-
-library(stringr) 
-
-data <- read_lines("epa-http.csv") 
-
-log_data <- str_match( 
-    data, 
-    '(\\S+) \\[(.*?)\\] "(\\S+) (.*?) (\\S+)" (\\d{3}) (\\S+)' 
-
-) 
-
-df <- data.frame( 
-    IP = log_data[,2], 
-    Timestamp = log_data[,3], 
-    Metodo = log_data[,4], 
-    URL = log_data[,5], 
-    Protocolo = log_data[,6], 
-    Codigo = log_data[,7], 
-    Bytes = log_data[,8] 
-
-) 
-
-df$Bytes[df$Bytes == "-"] <- NA 
-df$Bytes <- as.numeric(df$Bytes) 
-dim(df) 
-mean(df$Bytes, na.rm = TRUE) 
-print("El valor promedio es 7352.335, primero realizamos una conversion de datos porque la columna size era texto.")
-
-
-
 ```
 
-
+Primero se sincronizo el archivo “csv” en github, luego se importo el archivo identificando 7 columnas (X1, X2 hasta X7), posterior a ello se cambio el nombre de las columnas con el siguiente código.
 
 ## Paso P2
-```{r Pregunta2, echo=FALSE}
-library(stringr) 
 
+```{r Pregunta2, echo=FALSE}
 # Identificar IPs educativas 
-edu_ips <- str_detect(df$IP, "\\.edu") 
+edu_ips <- str_detect(epa_http$IP, "\\.edu") 
 
 # Obtener solo las IPs educativas 
-ips_edu <- df$IP[edu_ips] 
+ips_edu <- epa_http$IP[edu_ips] 
 
 # Contar IPs únicas 
-length(unique(ips_edu)) 
-
-print("Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu luego hacemos un filtro para almacenar los dominios publicos en la variabe ips_edu para pasarle como parametro a la funcion length y obtener  376 como resultado.")
-
+unicas_edu <- length(unique(ips_edu)) 
 ```
 
+Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu luego hacemos un filtro para almacenar los dominios publicos en la variabe ips_edu para pasarle como parametro a la funcion length y **obtener `r unicas_edu` como resultado**.
 
 ## Paso P3
+
 ```{r Pregunta3, echo=FALSE}
 print("De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET?")
 
 # Filtrar peticiones GET 
-get_requests <- df[df$Metodo == "GET", ] 
+get_requests <- epa_http[epa_http$Metodo == "GET", ] 
 
 # Extraer hora del timestamp 
 hora <- str_split_fixed(get_requests$Timestamp, ":", 4)[,2] 
@@ -138,27 +107,23 @@ tabla_horas <- table(hora)
 
 print("la camtidad de peticiones es")
 which.max(tabla_horas)
-
-
-
-
-
 ```
 
 ## Paso P4
+
 ```{r Pregunta4, echo=FALSE}
 
 print(" De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ")
 
 
 # Filtrar IP educativas 
-edu_filter <- str_detect(df$IP, "\\.edu") 
+edu_filter <- str_detect(epa_http$IP, "\\.edu") 
 
 # Filtrar archivos txt 
-txt_filter <- str_detect(df$URL, "\\.txt$") 
+txt_filter <- str_detect(epa_http$URL, "\\.txt$") 
 
 # Aplicar ambos filtros 
-datos_filtrados <- df[edu_filter & txt_filter, ] 
+datos_filtrados <- epa_http[edu_filter & txt_filter, ] 
 
 # Sumar bytes 
 sum(datos_filtrados$Bytes, na.rm = TRUE) 
@@ -169,26 +134,22 @@ print(" Primero obtenemos las peticiones GET, luego extraemos la hora de la colu
 print(" Primero filtramos los dominios .edu, luego filtramos los archivos de texto, tambien unimos las 2 tablas en la variable datos_filtrados para obtener la suma de la columna Bytes ")
 
 # Filtrar IP educativas 
-edu_filter <- str_detect(df$IP, "\\.edu") 
+edu_filter <- str_detect(epa_http$IP, "\\.edu") 
 
 
 # Filtrar archivos txt 
-txt_filter <- str_detect(df$URL, "\\.txt$") 
+txt_filter <- str_detect(epa_http$URL, "\\.txt$") 
 
 # Aplicar ambos filtros 
-datos_filtrados <- df[edu_filter & txt_filter, ] 
+datos_filtrados <- epa_http[edu_filter & txt_filter, ] 
 
  
 # Sumar bytes 
 sum(datos_filtrados$Bytes, na.rm = TRUE) 
-
-  
-
 ```
 
-
-
 ## Paso P5
+
 ```{r Pregunta5, echo=FALSE}
 
 print("¿Cuántas peticiones buscan directamente la URL /? ")
@@ -204,12 +165,12 @@ print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
 print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
 
 print("Se buscan directamente la URL ")
-sum(df$URL == "/", na.rm = TRUE)
+sum(epa_http$URL == "/", na.rm = TRUE)
 
 ```
 
-
 ## Paso P6
+
 ```{r Pregunta6, echo=FALSE}
 
 ## Paso P6
@@ -218,7 +179,7 @@ sum(df$URL == "/", na.rm = TRUE)
 protocolo_objetivo <- "HTTP/0.2"
 
 # Identificar las peticiones cuyo protocolo es distinto al protocolo objetivo
-peticiones_no_http02 <- df$Protocolo != protocolo_objetivo
+peticiones_no_http02 <- epa_http$Protocolo != protocolo_objetivo
 
 # Contar las peticiones que no utilizan HTTP/0.2,
 # ignorando valores faltantes (NA)
