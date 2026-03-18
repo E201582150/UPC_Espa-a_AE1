@@ -201,4 +201,7 @@ total_peticiones_no_http02 <- sum(peticiones_no_http02, na.rm = TRUE)
 # Mostrar el resultado
 total_peticiones_no_http02
 
+
+print("Se Finalizo los ejercicios")
+
 ```

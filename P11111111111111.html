@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Bruno" />
+<meta name="author" content="Depaz Cribillero, Castillo Pintado, Jaime, Rivas Tucto, Jerson, Somoza Buitron, Bruno" />
 
-<meta name="date" content="2026-03-18" />
+<meta name="date" content="2026-03-19" />
 
-<title>P1</title>
+<title>Actividad 1</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,9 +350,10 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">P1</h1>
-<h4 class="author">Bruno</h4>
-<h4 class="date">2026-03-18</h4>
+<h1 class="title toc-ignore">Actividad 1</h1>
+<h4 class="author">Depaz Cribillero, Castillo Pintado, Jaime, Rivas
+Tucto, Jerson, Somoza Buitron, Bruno</h4>
+<h4 class="date">2026-03-19</h4>
 
 </div>
 
@@ -361,10 +362,9 @@ display: none;
 <h1>DATA SCIENCE</h1>
 <div id="pregunta-1" class="section level2">
 <h2>PREGUNTA 1</h2>
-<p>De las siguientes preguntas, clasifica cada una como descriptiva,
-exploratoria, inferencia, predictiva o causal, y razona brevemente (una
-frase) el porqué:</p>
-<blockquote>
+<p><strong>De las siguientes preguntas, clasifica cada una como
+descriptiva, exploratoria, inferencia, predictiva o causal, y razona
+brevemente (una frase) el porqué:</strong></p>
 <ol style="list-style-type: decimal">
 <li>Dado un registro de vehículos que circulan por una autopista,
 disponemos de su marca y modelo, país de matriculación, y tipo de
@@ -372,61 +372,135 @@ vehículo (por número de ruedas). Con tal de ajustar precios de los
 peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más
 frecuente? ¿De qué países tenemos más vehículos?</li>
 </ol>
-</blockquote>
-<p>En base a la descripciòn que realiza con respecto a las preguntas se
-concluye que es un Anàlisis descriptivo, porque el objetivo de este es
-caracterizar y resumir un conjunto de datos mediante estadisticas
-descriptivas.</p>
+<p style="margin-left: 40px;color: blue;">
+<strong>En base a la descripciòn que realiza con respecto a las
+preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo
+de este es caracterizar y resumir un conjunto de datos mediante
+estadisticas descriptivas</strong>.
+</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Dado un registro de visualizaciones de un servicio de
+video-on-demand, donde disponemos de los datos del usuario, de la
+película seleccionada, fecha de visualización y categoría de la
+película, queremos saber ¿Hay alguna preferencia en cuanto a género
+literario según los usuarios y su rango de edad?</li>
+</ol>
+<p style="margin-left: 40px;color: blue;">
+<strong>En base a la descripciòn que realiza con respecto a las
+preguntas se concluye que es un Análisis inferencial porque se pretende
+evaluar la existencia de asociaciones significativas entre variables
+sociodemográficas y preferencias de contenido, extrapolando conclusiones
+más allá de la muestra observada.</strong>.
+</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Dado un registro de peticiones a un sitio web, vemos que las
+peticiones que provienen de una red de telefonía concreta acostumbran a
+ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar
+si en el futuro, los próximos mensajes de esa red seguirán dando
+problemas? ¿Hemos notado el mismo efecto en otras redes de
+telefonía? </li>
+</ol>
+<p style="margin-left: 40px;color: blue;">
+<strong>En base a la descripciòn que realiza con respecto a las
+preguntas se concluye que es un Análisis predictivo debido a que el
+interès central radica en modelar patrones históricos para anticipar la
+probabilidad de fallos futuros asociados a una red específica y
+contrastarlos con otras redes.</strong>.
+</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Dado los registros de usuarios de un servicio de compras por
+internet, los usuarios pueden agruparse por preferencias de productos
+comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y
+según su historial, pueda ser directamente asignado a un o diversos
+grupos?</li>
+</ol>
+<p style="margin-left: 40px;color: blue;">
+<strong>En base a la descripciòn que realiza con respecto a las
+preguntas se concluye que es un análisis exploratorio debido a que se
+busca identificar estructuras latentes o patrones de segmentación en los
+datos mediante técnicas de agrupamiento, sin una variable dependiente
+previamente definida.</strong>.
+</p>
 </div>
-<div id="paso-p1" class="section level2">
-<h2>Paso P1</h2>
-<pre><code>## [1] &quot;1.\tCuáles son las dimensiones del dataset cargado (número de filas y columnas)&quot;</code></pre>
-<pre><code>## [1] &quot;Leemos el archivo CSV&quot;</code></pre>
-<pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   X1 = col_character(),
-##   X2 = col_character(),
-##   X3 = col_character(),
-##   X4 = col_character(),
-##   X5 = col_character(),
-##   X6 = col_double(),
-##   X7 = col_character()
-## )</code></pre>
-<pre><code>## Warning: 21 parsing failures.
-##  row col  expected    actual           file
-## 7527  -- 7 columns 6 columns &#39;epa-http.csv&#39;
-## 7528  -- 7 columns 6 columns &#39;epa-http.csv&#39;
-## 7529  -- 7 columns 6 columns &#39;epa-http.csv&#39;
-## 7549  -- 7 columns 6 columns &#39;epa-http.csv&#39;
-## 7550  -- 7 columns 6 columns &#39;epa-http.csv&#39;
-## .... ... ......... ......... ..............
-## See problems(...) for more details.</code></pre>
-<pre><code>## [1] 47748     7</code></pre>
-<pre><code>## [1] 7352.335</code></pre>
-<pre><code>## [1] &quot;Se asigno las etiquetas&quot;</code></pre>
-<pre><code>## [1] &quot;Primero se sincronizo el archivo “csv” en github, luego se importo el archivo identificando 7 columnas (X1, X2 hasta X7), posterior a ello se cambio el nombre de las columnas con el siguiente código&quot;</code></pre>
-<pre><code>## [1] &quot;Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes&quot;</code></pre>
-<pre><code>## [1] &quot;2.\t2.\tValor medio de la columna Bytes Consejo: probad distintos parámetros para las funciones de carga de datos o directamente usad el asistente visual de RStudio para cargar datos en el panel de Entorno (Environment)&quot;</code></pre>
-<pre><code>## [1] &quot;Leemos el archivo CSV&quot;</code></pre>
-<pre><code>## [1] 47748     7</code></pre>
-<pre><code>## [1] 7352.335</code></pre>
-<pre><code>## [1] &quot;El valor promedio es 7352.335, primero realizamos una conversion de datos porque la columna size era texto.&quot;</code></pre>
+<div id="pregunta-2" class="section level2">
+<h2>PREGUNTA 2</h2>
+<p><strong>Considera el siguiente escenario:</strong></p>
+<p><em>Sabemos que un usuario de nuestra red empresarial ha estado
+usando esta para fines no relacionados con el trabajo, como por ejemplo
+tener un servicio web no autorizado abierto a la red (otros usuarios
+tienen servicios web activados y autorizados). No queremos tener que
+rastrear los puertos de cada PC, y sabemos que la actividad puede haber
+cesado. Pero podemos acceder a los registros de conexiones TCP de cada
+máquina de cada trabajador (hacia donde abre conexión un PC concreto).
+Sabemos que nuestros clientes se conectan desde lugares remotos de forma
+legítima, como parte de nuestro negocio, y que un trabajador puede haber
+habilitado temporalmente servicios de prueba. Nuestro objetivo es
+reducir lo posible la lista de posibles culpables, con tal de
+explicarles que por favor no expongan nuestros sistemas sin permiso de
+los operadores o la dirección.</em></p>
+<p><strong>Explica con detalle cómo se podría proceder al análisis y
+resolución del problema mediante Data Science, indicando de donde se
+obtendrían los datos, qué tratamiento deberían recibir, qué preguntas
+hacerse para resolver el problema, qué datos y gráficos se obtendrían, y
+cómo se comunicarían estos.</strong></p>
+<p style="margin-left: 40px;color: blue;">
+<strong>Consideramos que para abordar el escenario a travès de Data
+Science, debemos contemplar un anàlisis basado en los logs històricos de
+conexiones TCP salientes de todos los equipos corporativos, con el fin
+de poder identificar cuales son estos equipos y tener el listado de
+usuarios que son posibles sospechosos para poder reducir nuestro
+universo de casos. Cabe mencionar que estos registros deben ser
+obtenidos tanto de los sistemas operativos, SIEM, herramientas de
+monitorizaciòn, firewall, entre otros que permitan analizar las
+direcciones IP considerand los puertos utilizados.<br> <br> Posterior al
+paso mencionado, se debe realizar una limpieza de datos “datos
+elegantes”, en el cual se tiene que depurar los registros incompletos o
+duplicados con el fin de enriquecer la informaciòn a travès de la
+identificaciòn de puertos permitidos, rangos de IP legìtimos de
+clientes, y horarios de jornadas laborales. Esta actividad es crìtica
+para poder determinar la identificaciòn del comportamiento atìpicos.<br>
+<br> Con respecto a las preguntas, podemos considerar preguntas como:
+què tipo de equipos establecieron conexiones a servicios no autorizados,
+el tiempo que tuvo esa conexiòn, asì como los patrones temporales
+anòmalos y si las direcciones IP externas corresponden a ubicaciones
+habituales del negocio.<br> <br> Para ello, pueden aplicarse técnicas de
+análisis exploratorio y detección de anomalías, con el fin de reducir el
+conjunto de posibles equipos implicados. Y asì los resultados se
+presentarían mediante visualizaciones como distribuciones de uso de
+puertos o series temporales de conexiones, destacando los riesgos
+observados y reforzando la importancia del cumplimiento de las políticas
+de seguridad, sin adoptar un enfoque culposo.</strong>
+</p>
 </div>
-<div id="paso-p2" class="section level2">
-<h2>Paso P2</h2>
-<pre><code>## [1] 376</code></pre>
-<pre><code>## [1] &quot;Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu luego hacemos un filtro para almacenar los dominios publicos en la variabe ips_edu para pasarle como parametro a la funcion length y obtener  376 como resultado.&quot;</code></pre>
+</div>
+<div id="introduccion-a-r" class="section level1">
+<h1>INTRODUCCION A R</h1>
+<div id="pregunta-1-1" class="section level2">
+<h2>PREGUNTA 1</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Cuáles son las dimensiones del dataset cargado (número de
+filas y columnas)</strong></li>
+</ol>
+<p>El numero de filas y columnas es: 47748, 7</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Valor medio de la columna Bytes</strong></li>
+</ol>
+<p>El valor medio es: <strong>7352.3349129</strong></p>
+</div>
+<div id="pregunta-2-1" class="section level2">
+<h2>PREGUNTA 2</h2>
+<p>Primero filtramos los dominios .edu y los almacenamos en la variable
+ips_edu luego hacemos un filtro para almacenar los dominios publicos en
+la variabe ips_edu para pasarle como parametro a la funcion length y
+obtener <strong>375</strong> como resultado.</p>
 </div>
 <div id="paso-p3" class="section level2">
 <h2>Paso P3</h2>
 <pre><code>## [1] &quot;De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET?&quot;</code></pre>
-<pre><code>## 14 
-## 15</code></pre>
+<pre><code>## integer(0)</code></pre>
 <pre><code>## [1] &quot;la Hora con mayor peticiones es 2pm&quot;</code></pre>
 <pre><code>## [1] &quot;la camtidad de peticiones es&quot;</code></pre>
-<pre><code>## 14 
-## 15</code></pre>
+<pre><code>## integer(0)</code></pre>
 </div>
 <div id="paso-p4" class="section level2">
 <h2>Paso P4</h2>
@@ -451,7 +525,8 @@ descriptivas.</p>
 </div>
 <div id="paso-p6" class="section level2">
 <h2>Paso P6</h2>
-<pre><code>## [1] 47726</code></pre>
+<pre><code>## [1] 47748</code></pre>
+<pre><code>## [1] &quot;Se Finalizo los ejercicios&quot;</code></pre>
 </div>
 </div>
 
