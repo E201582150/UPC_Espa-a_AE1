@@ -192,17 +192,19 @@ sum(df$URL == "/", na.rm = TRUE)
 ## Paso P6
 ```{r Pregunta6, echo=FALSE}
 
-print("Se definió una variable con el protocolo HTTP/0.2 para facilitar la comparación. Posteriormente se creó un vector lógico que identifica las peticiones cuyo protocolo es distinto")
+## Paso P6
 
-print("Finalmente se utilizó la función sum() para contar los valores TRUE, ignorando valores faltantes (NA) mediante na.rm = TRUE")
+# Definir el protocolo de referencia
+protocolo_objetivo <- "HTTP/0.2"
 
+# Identificar las peticiones cuyo protocolo es distinto al protocolo objetivo
+peticiones_no_http02 <- df$Protocolo != protocolo_objetivo
 
-protocolo_objetivo <- "HTTP/0.2" 
-peticiones_no_http02 <- df$Protocolo != protocolo_objetivo 
-total_peticiones <- sum(peticiones_no_http02, na.rm = TRUE) 
-total_peticiones 
+# Contar las peticiones que no utilizan HTTP/0.2,
+# ignorando valores faltantes (NA)
+total_peticiones_no_http02 <- sum(peticiones_no_http02, na.rm = TRUE)
 
-
-print("FIN P6")
+# Mostrar el resultado
+total_peticiones_no_http02
 
 ```
