@@ -1,0 +1,208 @@
+---
+title: "P1"
+author: "Bruno"
+date: "2026-03-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr) 
+library(stringr) 
+
+```
+
+
+
+## Paso P1
+```{r Pregunta1, echo=FALSE}
+
+print("1.	Cuáles son las dimensiones del dataset cargado (número de filas y columnas)")
+ 
+print("Leemos el archivo CSV")
+epa_http <- read_table("epa-http.csv", col_names = FALSE)
+
+colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo", "Bytes")
+epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
+
+epa_http$Bytes <- as.numeric(epa_http$Bytes) 
+
+dim(epa_http) 
+
+mean(epa_http$Bytes, na.rm = TRUE) 
+print("Se asigno las etiquetas")
+
+print("Primero se sincronizo el archivo “csv” en github, luego se importo el archivo identificando 7 columnas (X1, X2 hasta X7), posterior a ello se cambio el nombre de las columnas con el siguiente código")
+print("Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes")
+
+
+```
+
+
+## Paso P2
+```{r Pregunta2, echo=FALSE}
+
+print("2.	2.	Valor medio de la columna Bytes Consejo: probad distintos parámetros para las funciones de carga de datos o directamente usad el asistente visual de RStudio para cargar datos en el panel de Entorno (Environment)")
+
+print("Leemos el archivo CSV")
+
+library(readr) 
+
+library(stringr) 
+
+ 
+
+data <- read_lines("epa-http.csv") 
+
+ 
+
+log_data <- str_match( 
+
+    data, 
+
+    '(\\S+) \\[(.*?)\\] "(\\S+) (.*?) (\\S+)" (\\d{3}) (\\S+)' 
+
+) 
+
+ 
+
+df <- data.frame( 
+
+    IP = log_data[,2], 
+
+    Timestamp = log_data[,3], 
+
+    Metodo = log_data[,4], 
+
+    URL = log_data[,5], 
+
+    Protocolo = log_data[,6], 
+
+    Codigo = log_data[,7], 
+
+    Bytes = log_data[,8] 
+
+) 
+
+ 
+
+df$Bytes[df$Bytes == "-"] <- NA 
+
+df$Bytes <- as.numeric(df$Bytes) 
+
+ 
+
+dim(df) 
+
+ 
+
+mean(df$Bytes, na.rm = TRUE) 
+
+
+print("El valor promedio es 7352.335, primero realizamos una conversion de datos porque la columna size era texto.")
+
+
+
+```
+
+
+
+## Paso P3
+```{r Pregunta3, echo=FALSE}
+library(stringr) 
+
+# Identificar IPs educativas 
+edu_ips <- str_detect(df$IP, "\\.edu") 
+
+# Obtener solo las IPs educativas 
+ips_edu <- df$IP[edu_ips] 
+
+# Contar IPs únicas 
+length(unique(ips_edu)) 
+
+print("Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu luego hacemos un filtro para almacenar los dominios publicos en la variabe ips_edu para pasarle como parametro a la funcion length y obtener  376 como resultado.")
+
+```
+
+
+
+## Paso P4
+```{r Pregunta4, echo=FALSE}
+
+print(" De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ")
+
+
+# Filtrar IP educativas 
+edu_filter <- str_detect(df$IP, "\\.edu") 
+
+# Filtrar archivos txt 
+txt_filter <- str_detect(df$URL, "\\.txt$") 
+
+# Aplicar ambos filtros 
+datos_filtrados <- df[edu_filter & txt_filter, ] 
+
+# Sumar bytes 
+sum(datos_filtrados$Bytes, na.rm = TRUE) 
+
+
+print(" Primero obtenemos las peticiones GET, luego extraemos la hora de la columna Timestamp y obtenemos la cantidad de hores ")
+
+print(" Primero filtramos los dominios .edu, luego filtramos los archivos de texto, tambien unimos las 2 tablas en la variable datos_filtrados para obtener la suma de la columna Bytes ")
+
+# Filtrar IP educativas 
+edu_filter <- str_detect(df$IP, "\\.edu") 
+
+
+# Filtrar archivos txt 
+txt_filter <- str_detect(df$URL, "\\.txt$") 
+
+# Aplicar ambos filtros 
+datos_filtrados <- df[edu_filter & txt_filter, ] 
+
+ 
+# Sumar bytes 
+sum(datos_filtrados$Bytes, na.rm = TRUE) 
+
+  
+
+```
+
+
+
+## Paso P5
+```{r Pregunta5, echo=FALSE}
+
+print("¿Cuántas peticiones buscan directamente la URL /? ")
+
+
+print("Se analiza la columna URL del dataset. ")
+print("Se compara cada valor con la cadena /, que representa la raíz del servidor web.")
+print("El resultado es un vector lógico ")
+print("TRUE FALSE FALSE TRUE ... ")
+print(" Se utiliza la función sum() para contar cuántos valores son TRUE. ")
+
+print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
+print(" Se usa na.rm = TRUE para ignorar registros con valores faltantes. ")
+
+sum(df$URL == "/", na.rm = TRUE)
+
+```
+
+
+## Paso P6
+```{r Pregunta6, echo=FALSE}
+
+print("Se definió una variable con el protocolo HTTP/0.2 para facilitar la comparación. Posteriormente se creó un vector lógico que identifica las peticiones cuyo protocolo es distinto")
+
+print("Finalmente se utilizó la función sum() para contar los valores TRUE, ignorando valores faltantes (NA) mediante na.rm = TRUE")
+
+
+protocolo_objetivo <- "HTTP/0.2" 
+peticiones_no_http02 <- df$Protocolo != protocolo_objetivo 
+total_peticiones <- sum(peticiones_no_http02, na.rm = TRUE) 
+total_peticiones 
+
+
+print("FIN P6")
+
+```
