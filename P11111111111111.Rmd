@@ -18,21 +18,27 @@ library(stringr)
 
 **De las siguientes preguntas, clasifica cada una como descriptiva, exploratoria, inferencia, predictiva o causal, y razona brevemente (una frase) el porqué:**
 
-1.  Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
+1. Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
-> *En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas.*
+<p style="margin-left: 40px;color: red;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas**.</p>
 
-2.  Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
+2. Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
 
-> *En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.*
+<p style="margin-left: 40px;color: red;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.**.</p>
 
-3.  Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía?
 
-> *En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.*
+3. Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía? 
 
-4.  Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos?
+<p style="margin-left: 40px;color: red;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.**.</p>
 
-> *En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.*
+    
+4. Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos? 
+
+<p style="margin-left: 40px;color: red;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.**.</p>
 
 ## PREGUNTA 2
 
