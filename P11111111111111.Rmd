@@ -20,24 +20,24 @@ library(stringr)
 
 1. Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
-<p style="margin-left: 40px;color: red;">
+<p style="margin-left: 40px;color: blue;">
       **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas**.</p>
 
 2. Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
 
-<p style="margin-left: 40px;color: red;">
+<p style="margin-left: 40px;color: blue;">
       **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.**.</p>
 
 
 3. Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía? 
 
-<p style="margin-left: 40px;color: red;">
+<p style="margin-left: 40px;color: blue;">
       **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.**.</p>
 
     
 4. Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos? 
 
-<p style="margin-left: 40px;color: red;">
+<p style="margin-left: 40px;color: blue;">
       **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.**.</p>
 
 ## PREGUNTA 2
@@ -48,11 +48,11 @@ library(stringr)
 
 **Explica con detalle cómo se podría proceder al análisis y resolución del problema mediante Data Science, indicando de donde se obtendrían los datos, qué tratamiento deberían recibir, qué preguntas hacerse para resolver el problema, qué datos y gráficos se obtendrían, y cómo se comunicarían estos.**
 
-Para abordar el escenario planteado mediante Data Science, se propone un análisis basado en los registros históricos de conexiones TCP salientes de los equipos corporativos, dado que la actividad sospechosa podría haber finalizado. Estos registros, obtenidos de sistemas operativos, firewalls o herramientas de monitorización de red, permitirían analizar direcciones IP, puertos utilizados y marcas temporales de las conexiones.
-Los datos recolectados deben ser sometidos a un proceso de limpieza y preprocesamiento, eliminando registros incompletos y enriqueciendo la información mediante la identificación de puertos autorizados, rangos de IP legítimos de clientes y horarios habituales de trabajo. Este tratamiento facilita la identificación de comportamientos atípicos.
-El análisis se orienta a responder preguntas como: qué equipos establecieron conexiones asociadas a servicios no autorizados, si existen patrones temporales anómalos y si las direcciones IP externas corresponden a ubicaciones habituales del negocio. Para ello, pueden aplicarse técnicas de análisis exploratorio y detección de anomalías, con el fin de reducir el conjunto de posibles equipos implicados.
-Los resultados se presentarían mediante visualizaciones simples, como distribuciones de uso de puertos o series temporales de conexiones, y se comunicarían de forma objetiva y preventiva, destacando los riesgos observados y reforzando la importancia del cumplimiento de las políticas de seguridad, sin adoptar un enfoque acusatorio.
-
+<p style="margin-left: 40px;color: blue;">
+      **Consideramos que para abordar el escenario a travès de Data Science, debemos contemplar un anàlisis basado en los logs històricos de conexiones TCP salientes de todos los equipos corporativos, con el fin de poder identificar cuales son estos equipos y tener el listado de usuarios que son posibles sospechosos para poder reducir nuestro universo de casos. Cabe mencionar que estos registros deben ser obtenidos tanto de los sistemas operativos, SIEM, herramientas de monitorizaciòn, firewall, entre otros que permitan analizar las direcciones IP considerand los puertos utilizados.<br>
+      <br> Posterior al paso mencionado, se debe realizar una limpieza de datos "datos elegantes", en el cual se tiene que depurar los registros incompletos o duplicados con el fin de enriquecer la informaciòn a travès de la identificaciòn de puertos permitidos, rangos de IP legìtimos de clientes, y horarios de jornadas laborales. Esta actividad es crìtica para poder determinar la identificaciòn del comportamiento atìpicos.<br>
+    <br>  Con respecto a las preguntas, podemos considerar preguntas como: què tipo de equipos establecieron conexiones a servicios no autorizados, el tiempo que tuvo esa conexiòn, asì como los patrones temporales anòmalos y si las direcciones IP externas corresponden a ubicaciones habituales del negocio.<br>
+     <br> Para ello, pueden aplicarse técnicas de análisis exploratorio y detección de anomalías, con el fin de reducir el conjunto de posibles equipos implicados. Y asì los resultados se presentarían mediante visualizaciones como distribuciones de uso de puertos o series temporales de conexiones, destacando los riesgos observados y reforzando la importancia del cumplimiento de las políticas de seguridad, sin adoptar un enfoque culposo.**</p>
 
 # INTRODUCCION A R
 
