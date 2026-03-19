@@ -14,6 +14,9 @@ library(httr)
 library(rvest)
 library(XML)
 library(httr)
+library(dplyr)
+library(xml2)
+
 
 ```
 
@@ -24,6 +27,7 @@ library(httr)
 
 url <- "https://es.wikipedia.org/wiki/Anexo:Presidentes_del_Per%C3%BA"
 html <- read_html(url)
+url_base <- "https://es.wikipedia.org"
 ```
 
 
@@ -48,7 +52,6 @@ titulo
 
 urls <- html |> html_elements("a") |> html_attr("href")
 texto <- html |> html_elements("a") |> html_text2()
-
 df_links <-data.frame(links = urls, valor = texto)
 ```
 
@@ -57,19 +60,26 @@ df_links <-data.frame(links = urls, valor = texto)
 ## 4. Generar una tabla con cada enlace encontrado, indicando el texto que  acompaña el enlace, y el número de veces que aparece un enlace con ese  mismo objetivo.**
 
 ```{r Pregunta4, echo=FALSE, warning=FALSE, error=FALSE}
-links <- page %>%
-  html_nodes("table.wikitable a") %>%  # selecciona enlaces dentro de la tabla
-  html_attr("href")
 
-links
+df_links <- df_links %>% count(links, valor)
+
 ```
-
-
 
 
 ##5. Para cada enlace, seguirlo e indicar si está activo (podemos usar el código de  status HTTP al hacer una petición a esa URL).** 
 ```{r Pregunta5, echo=FALSE, warning=FALSE, error=FALSE}
+# construir urls relativas a absolutas
+df_links <- df_links %>% mutate(links_abs = if_else(grepl("^#", links),
+                                                    paste(url, links, sep = ""), 
+                                                    if_else(grepl("^/", links),paste(url_base,links, sep = ""), links)
+                                                   )
+)
 
+#
+df_links$status_code <- sapply(df_links$links_abs, FUN = function(x){
+  res <- session(x)
+  return(res$response$status_code)
+})
 ```
 
 
