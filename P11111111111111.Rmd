@@ -96,33 +96,35 @@ Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu lue
 
 ## PREGUNTA 3
 
-
-3. **¿De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET? **
-
 ```{r Pregunta3, echo=FALSE}
 
-# Filtrar peticiones GET 
-get_requests <- epa_http[epa_http$Metodo == "GET", ] 
+# Filtrar peticiones GET
+get_requests <- epa_http[epa_http$Metodo == "GET", ]
 
-# Extraer hora del timestamp 
-hora <- str_split_fixed(get_requests$Timestamp, ":", 4)[,2] 
+# Limpiar y convertir Timestamp a fecha-hora
+timestamp_limpio <- str_replace_all(get_requests$Timestamp, "\\[|\\]", "")
 
-# Convertir a número 
-hora <- as.numeric(hora) 
+fecha_hora <- as.POSIXct(
+  timestamp_limpio,
+  format = "%d/%b/%Y:%H:%M:%S %z"
+)
 
-# Contar peticiones por hora 
-tabla_horas <- table(hora) 
+# Extraer hora
+hora <- format(fecha_hora, "%H")
 
-# Hora con más peticiones 
-which.max(tabla_horas) 
+# Contar peticiones por hora
+tabla_horas <- table(hora)
 
+# Hora con más peticiones
+hora_max <- names(tabla_horas)[which.max(tabla_horas)]
+cantidad_max <- max(tabla_horas)
 
-print("la Hora con mayor peticiones es 2pm")
-tabla_horas <- table(hora) 
-
-print("la camtidad de peticiones es")
-which.max(tabla_horas)
 ```
+
+3. **De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?**
+<p style="margin-left: 40px;color: blue;">
+La hora en la que hay mayor volumen de peticiones HTTP de tipo GET es **`r hora_max`** con **`r cantidad_max`** peticiones.
+</p>
 
 
 
