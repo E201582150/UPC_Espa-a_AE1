@@ -1,6 +1,6 @@
 ---
-title: "Actividad 1"
-author: "Depaz Cribillero, Castillo Pintado, Jaime, Rivas Tucto, Jerson, Somoza Buitron, Bruno"
+title: "Actividad Evaluable 1"
+author: "* Depaz Cribillero, Cesar. * Castillo Pintado, Jaime. * Rivas Tucto, Jerson. * Somoza Buitron, Bruno."
 date: "2026-03-19"
 output: html_document
 ---
@@ -71,13 +71,15 @@ colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo"
 epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
 epa_http$Bytes <- as.numeric(epa_http$Bytes) 
 ```
-
-El numero de filas y columnas es: `r dim(epa_http)`
+<p style="margin-left: 40px;color: blue;">
+El numero de filas y columnas es: **`r dim(epa_http)`**
+</p>
 
 2.  **Valor medio de la columna Bytes**
 
+<p style="margin-left: 40px;color: blue;">
 El valor medio es: **`r mean(epa_http$Bytes, na.rm = TRUE)`**
-
+</p>
 
 ## PREGUNTA 2
 
@@ -91,8 +93,10 @@ ips_edu <- epa_http$IP[edu_ips]
 # Contar IPs únicas 
 unicas_edu <- length(unique(ips_edu)) 
 ```
-
-Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu luego hacemos un filtro para almacenar los dominios publicos en la variabe ips_edu para pasarle como parametro a la funcion length y obtener **`r unicas_edu`** como resultado.
+2. **De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?**
+<p style="margin-left: 40px;color: blue;">
+Pertenecen **`r unicas_edu`** IPs.
+</p>
 
 ## PREGUNTA 3
 
@@ -172,7 +176,7 @@ respuesta5 <- sum(epa_http$URL == "/", na.rm = TRUE)
 5. **Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?**
 
 <p style="margin-left: 40px;color: blue;">
-Hay **`r respuesta5`** peticiones que buscan la URL = "/"?.
+Hay **`r respuesta5`** peticiones que buscan la URL = "/".
 </p>
 
 
@@ -192,13 +196,10 @@ peticiones_no_http02 <- epa_http$Protocolo != protocolo_objetivo
 # ignorando valores faltantes (NA)
 total_peticiones_no_http02 <- sum(peticiones_no_http02, na.rm = TRUE)
 
-# Mostrar el resultado
-total_peticiones_no_http02
-
-
-print("Se Finalizo los ejercicios")
-
-
 
 ```
+6. **Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"? **
+<p style="margin-left: 40px;color: blue;">
 **`r total_peticiones_no_http02`** no tienen peticiones http02.
+</p>
+

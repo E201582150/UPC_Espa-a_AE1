@@ -1,0 +1,35 @@
+---
+title: "ActividadEvaluable2"
+output: html_document
+---
+
+# INSTALACIÓN DE LIBRERÍAS (ejecutar solo una vez)
+# install.packages("httr")
+# install.packages("xml2")
+
+# CARGA DE LIBRERÍAS
+library(httr)
+library(xml2)
+
+# DEFINIR URL
+url <- "https://www.wikipedia.org/"
+
+# DESCARGAR PÁGINA WEB
+respuesta <- GET(url)
+
+# VERIFICAR QUE LA PETICIÓN FUE EXITOSA (200 = OK)
+status_code(respuesta)
+
+# EXTRAER CONTENIDO HTML COMO TEXTO
+html_texto <- content(respuesta, as = "text", encoding = "UTF-8")
+
+# PARSEAR HTML A FORMATO ANALIZABLE (XML/HTML)
+html_parseado <- read_html(html_texto)
+
+# PRUEBA: OBTENER EL TÍTULO DE LA PÁGINA
+html_title(html_parseado)
+
+```{r Pregunta1a, echo=FALSE, warning=FALSE, error=FALSE}
+
+
+```
