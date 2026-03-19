@@ -1,0 +1,205 @@
+---
+title: "Actividad 1"
+author: "Depaz Cribillero, Castillo Pintado, Jaime, Rivas Tucto, Jerson, Somoza Buitron, Bruno"
+date: "2026-03-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr) 
+library(stringr) 
+
+```
+
+# DATA SCIENCE
+
+## PREGUNTA 1
+
+**De las siguientes preguntas, clasifica cada una como descriptiva, exploratoria, inferencia, predictiva o causal, y razona brevemente (una frase) el porqué:**
+
+1. Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
+
+<p style="margin-left: 40px;color: blue;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas**.</p>
+
+2. Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
+
+<p style="margin-left: 40px;color: blue;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.**.</p>
+
+
+3. Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía? 
+
+<p style="margin-left: 40px;color: blue;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.**.</p>
+
+    
+4. Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos? 
+
+<p style="margin-left: 40px;color: blue;">
+      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.**.</p>
+
+## PREGUNTA 2
+
+**Considera el siguiente escenario:**
+
+*Sabemos que un usuario de nuestra red empresarial ha estado usando esta para fines no relacionados con el trabajo, como por ejemplo tener un servicio web no autorizado abierto a la red (otros usuarios tienen servicios web activados y autorizados). No queremos tener que rastrear los puertos de cada PC, y sabemos que la actividad puede haber cesado. Pero podemos acceder a los registros de conexiones TCP de cada máquina de cada trabajador (hacia donde abre conexión un PC concreto). Sabemos que nuestros clientes se conectan desde lugares remotos de forma legítima, como parte de nuestro negocio, y que un trabajador puede haber habilitado temporalmente servicios de prueba. Nuestro objetivo es reducir lo posible la lista de posibles culpables, con tal de explicarles que por favor no expongan nuestros sistemas sin permiso de los operadores o la dirección.*
+
+**Explica con detalle cómo se podría proceder al análisis y resolución del problema mediante Data Science, indicando de donde se obtendrían los datos, qué tratamiento deberían recibir, qué preguntas hacerse para resolver el problema, qué datos y gráficos se obtendrían, y cómo se comunicarían estos.**
+
+<p style="margin-left: 40px;color: blue;">
+      **Consideramos que para abordar el escenario a travès de Data Science, debemos contemplar un anàlisis basado en los logs històricos de conexiones TCP salientes de todos los equipos corporativos, con el fin de poder identificar cuales son estos equipos y tener el listado de usuarios que son posibles sospechosos para poder reducir nuestro universo de casos. Cabe mencionar que estos registros deben ser obtenidos tanto de los sistemas operativos, SIEM, herramientas de monitorizaciòn, firewall, entre otros que permitan analizar las direcciones IP considerand los puertos utilizados.<br>
+      <br> Posterior al paso mencionado, se debe realizar una limpieza de datos "datos elegantes", en el cual se tiene que depurar los registros incompletos o duplicados con el fin de enriquecer la informaciòn a travès de la identificaciòn de puertos permitidos, rangos de IP legìtimos de clientes, y horarios de jornadas laborales. Esta actividad es crìtica para poder determinar la identificaciòn del comportamiento atìpicos.<br>
+    <br>  Con respecto a las preguntas, podemos considerar preguntas como: què tipo de equipos establecieron conexiones a servicios no autorizados, el tiempo que tuvo esa conexiòn, asì como los patrones temporales anòmalos y si las direcciones IP externas corresponden a ubicaciones habituales del negocio.<br>
+     <br> Para ello, pueden aplicarse técnicas de análisis exploratorio y detección de anomalías, con el fin de reducir el conjunto de posibles equipos implicados. Y asì los resultados se presentarían mediante visualizaciones como distribuciones de uso de puertos o series temporales de conexiones, destacando los riesgos observados y reforzando la importancia del cumplimiento de las políticas de seguridad, sin adoptar un enfoque culposo.**</p>
+
+# INTRODUCCION A R
+
+## PREGUNTA 1
+
+1.  **Cuáles son las dimensiones del dataset cargado (número de filas y columnas)**
+
+```{r Pregunta1a, echo=FALSE, warning=FALSE, error=FALSE}
+# Leemos el archivo CSV
+epa_http <- read_table("epa-http.csv", col_names = FALSE, show_col_types = F)
+
+# CAMBIO NOMBRE COLUMNAS
+colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo", "Bytes")
+
+# Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes")
+epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
+epa_http$Bytes <- as.numeric(epa_http$Bytes) 
+```
+<p style="margin-left: 40px;color: blue;">
+El numero de filas y columnas es: **`r dim(epa_http)`**
+</p>
+
+2.  **Valor medio de la columna Bytes**
+
+<p style="margin-left: 40px;color: blue;">
+El valor medio es: **`r mean(epa_http$Bytes, na.rm = TRUE)`**
+</p>
+
+## PREGUNTA 2
+
+```{r Pregunta2, echo=FALSE}
+# Identificar IPs educativas 
+edu_ips <- str_detect(epa_http$IP, "\\.edu") 
+
+# Obtener solo las IPs educativas 
+ips_edu <- epa_http$IP[edu_ips] 
+
+# Contar IPs únicas 
+unicas_edu <- length(unique(ips_edu)) 
+```
+2. **De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?**
+<p style="margin-left: 40px;color: blue;">
+Pertenecen **`r unicas_edu`** IPs.
+</p>
+
+## PREGUNTA 3
+
+```{r Pregunta3, echo=FALSE}
+
+library(stringr)
+
+# 1. Convertir cada fila del log en texto completo
+filas_texto <- apply(as.data.frame(epa_http), 1, paste, collapse = " ")
+
+# 2. Filtrar filas con peticiones GET
+texto_get <- filas_texto[grepl("\\bGET\\b", filas_texto)]
+
+# 3. Extraer SOLO la hora (HH)
+hora_texto <- str_extract(texto_get, "(?<=:)\\d{2}(?=:\\d{2}:\\d{2})")
+
+# 4. Convertir a numérico y eliminar NA
+hora <- as.numeric(hora_texto)
+hora <- hora[!is.na(hora)]
+
+# 5. Contar peticiones por hora
+tabla_horas <- table(hora)
+
+# 6. Hora con mayor volumen de peticiones GET
+hora_max <- names(tabla_horas)[which.max(tabla_horas)]
+cantidad_max <- max(tabla_horas)
+
+```
+
+3. **De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?**
+<p style="margin-left: 40px;color: blue;">
+La hora en la que hay mayor volumen de peticiones HTTP de tipo GET es **`r hora_max`** con **`r cantidad_max`** peticiones.
+</p>
+
+
+
+## PREGUNTA 4
+
+```{r Pregunta4, echo=FALSE, warning=FALSE, error=FALSE}
+
+# Filtrar IP educativas 
+edu_filter <- str_detect(epa_http$IP, "\\.edu") 
+
+# Filtrar archivos txt 
+txt_filter <- str_detect(epa_http$URL, "\\.txt$") 
+
+# Aplicar ambos filtros 
+datos_filtrados <- epa_http[edu_filter & txt_filter, ] 
+
+# Sumar bytes 
+#sumarespuesta4 <- sum(datos_filtrados$Bytes, na.rm = TRUE) 
+
+# Filtrar IP educativas 
+edu_filter <- str_detect(epa_http$IP, "\\.edu") 
+
+# Filtrar archivos txt 
+txt_filter <- str_detect(epa_http$URL, "\\.txt$") 
+
+# Aplicar ambos filtros 
+datos_filtrados <- epa_http[edu_filter & txt_filter, ] 
+
+# Sumar bytes 
+respuesta4 <- sum(datos_filtrados$Bytes, na.rm = TRUE)/1024
+```
+
+4. **De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?**
+
+<p style="margin-left: 40px;color: blue;">
+Se han transmitido **`r respuesta4`** bytes de descarga de ficheros.
+</p>
+
+## PREGUNTA 5
+
+```{r Pregunta5, echo=FALSE}
+respuesta5 <- sum(epa_http$URL == "/", na.rm = TRUE)
+```
+5. **Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?**
+
+<p style="margin-left: 40px;color: blue;">
+Hay **`r respuesta5`** peticiones que buscan la URL = "/".
+</p>
+
+
+## Paso P6
+
+```{r Pregunta6, echo=FALSE}
+
+## Paso P6
+
+# Definir el protocolo de referencia
+protocolo_objetivo <- "HTTP/0.2"
+
+# Identificar las peticiones cuyo protocolo es distinto al protocolo objetivo
+peticiones_no_http02 <- epa_http$Protocolo != protocolo_objetivo
+
+# Contar las peticiones que no utilizan HTTP/0.2,
+# ignorando valores faltantes (NA)
+total_peticiones_no_http02 <- sum(peticiones_no_http02, na.rm = TRUE)
+
+
+```
+6. **Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"? **
+<p style="margin-left: 40px;color: blue;">
+**`r total_peticiones_no_http02`** no tienen peticiones http02.
+</p>
+
