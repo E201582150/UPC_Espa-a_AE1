@@ -1,6 +1,6 @@
 ---
-title: "Actividad 1"
-author: "Depaz Cribillero, Castillo Pintado, Jaime, Rivas Tucto, Jerson, Somoza Buitron, Bruno"
+title: "Actividad Evaluable 1"
+author: "* Depaz Cribillero, Cesar. * Castillo Pintado, Jaime. * Rivas Tucto, Jerson. * Somoza Buitron, Bruno."
 date: "2026-03-19"
 output: html_document
 ---
