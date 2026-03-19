@@ -112,6 +112,26 @@ siguientes detalles:
 **1. Un histograma con la frecuencia de aparición de los enlaces, pero separado por 
 URLs absolutas (con “http…”) y URLs relativas.** 
 
+```{r Pregunta2.1, echo=FALSE, warning=FALSE, error=FALSE}
+
+tabla <- table(df_links$links)
+df_links$frecuencia <- tabla[df_links$links]
+
+df_filtrado_Abs <- df_links %>% filter(grepl("^https", links))
+df_filtrado_Rel <- df_links %>% filter(!grepl("^https", links))
+
+##filter(df_links$valor, df_links$links == "https")
+
+summary(df_filtrado_Rel$n)
+count(df_filtrado_Rel,n)
+
+hist(x = df_filtrado_Rel$frecuencia, breaks = 10, col = "blue", main = "Histograma de frecuencia de aparición de los enlaces", xlab = "Enlaces Relativo", ylab = "Frecuencia")
+hist(x = df_filtrado_Abs$frecuencia, breaks = 10, col = "red", main = "Histograma de frecuencia de aparición de los enlaces", xlab = "Enlaces Absoluta", ylab = "Frecuencia")
+
+```
+
+
+
 **2. Un gráfico de barras indicando la suma de enlaces que apuntan a otros 
 dominios o servicios (distinto a https://www.mediawiki.org en el caso de 
 ejemplo) vs. la suma de los otros enlaces.** 
