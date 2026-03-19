@@ -98,24 +98,25 @@ Primero filtramos los dominios .edu y los almacenamos en la variable ips_edu lue
 
 ```{r Pregunta3, echo=FALSE}
 
-# Filtrar peticiones GET
-get_requests <- epa_http[epa_http$Metodo == "GET", ]
+library(stringr)
 
-# Limpiar y convertir Timestamp a fecha-hora
-timestamp_limpio <- str_replace_all(get_requests$Timestamp, "\\[|\\]", "")
+# 1. Convertir cada fila del log en texto completo
+filas_texto <- apply(as.data.frame(epa_http), 1, paste, collapse = " ")
 
-fecha_hora <- as.POSIXct(
-  timestamp_limpio,
-  format = "%d/%b/%Y:%H:%M:%S %z"
-)
+# 2. Filtrar filas con peticiones GET
+texto_get <- filas_texto[grepl("\\bGET\\b", filas_texto)]
 
-# Extraer hora
-hora <- format(fecha_hora, "%H")
+# 3. Extraer SOLO la hora (HH)
+hora_texto <- str_extract(texto_get, "(?<=:)\\d{2}(?=:\\d{2}:\\d{2})")
 
-# Contar peticiones por hora
+# 4. Convertir a numérico y eliminar NA
+hora <- as.numeric(hora_texto)
+hora <- hora[!is.na(hora)]
+
+# 5. Contar peticiones por hora
 tabla_horas <- table(hora)
 
-# Hora con más peticiones
+# 6. Hora con mayor volumen de peticiones GET
 hora_max <- names(tabla_horas)[which.max(tabla_horas)]
 cantidad_max <- max(tabla_horas)
 

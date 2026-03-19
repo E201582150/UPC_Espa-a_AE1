@@ -494,39 +494,46 @@ ips_edu luego hacemos un filtro para almacenar los dominios publicos en
 la variabe ips_edu para pasarle como parametro a la funcion length y
 obtener <strong>375</strong> como resultado.</p>
 </div>
-<div id="paso-p3" class="section level2">
-<h2>Paso P3</h2>
-<pre><code>## [1] &quot;De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo GET?&quot;</code></pre>
-<pre><code>## integer(0)</code></pre>
-<pre><code>## [1] &quot;la Hora con mayor peticiones es 2pm&quot;</code></pre>
-<pre><code>## [1] &quot;la camtidad de peticiones es&quot;</code></pre>
-<pre><code>## integer(0)</code></pre>
+<div id="pregunta-3" class="section level2">
+<h2>PREGUNTA 3</h2>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>De todas las peticiones recibidas por el servidor cual es la
+hora en la que hay mayor volumen de peticiones HTTP de tipo
+“GET”?</strong>
+<p style="margin-left: 40px;color: blue;">
+La hora en la que hay mayor volumen de peticiones HTTP de tipo GET es
+<strong>14</strong> con <strong>4546</strong> peticiones.
+</p></li>
+</ol>
 </div>
-<div id="paso-p4" class="section level2">
-<h2>Paso P4</h2>
-<pre><code>## [1] &quot; De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto &quot;</code></pre>
-<pre><code>## [1] 106806</code></pre>
-<pre><code>## [1] &quot; Primero obtenemos las peticiones GET, luego extraemos la hora de la columna Timestamp y obtenemos la cantidad de hores &quot;</code></pre>
-<pre><code>## [1] &quot; Primero filtramos los dominios .edu, luego filtramos los archivos de texto, tambien unimos las 2 tablas en la variable datos_filtrados para obtener la suma de la columna Bytes &quot;</code></pre>
-<pre><code>## [1] 106806</code></pre>
+<div id="pregunta-4" class="section level2">
+<h2>PREGUNTA 4</h2>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>De las peticiones hechas por instituciones educativas
+(.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de
+descarga de ficheros de texto “.txt”?</strong></li>
+</ol>
+<p style="margin-left: 40px;color: blue;">
+Se han transmitido <strong>104.3027344</strong> bytes de descarga de
+ficheros.
+</p>
 </div>
-<div id="paso-p5" class="section level2">
-<h2>Paso P5</h2>
-<pre><code>## [1] &quot;¿Cuántas peticiones buscan directamente la URL /? &quot;</code></pre>
-<pre><code>## [1] &quot;Se analiza la columna URL del dataset. &quot;</code></pre>
-<pre><code>## [1] &quot;Se compara cada valor con la cadena /, que representa la raíz del servidor web.&quot;</code></pre>
-<pre><code>## [1] &quot;El resultado es un vector lógico &quot;</code></pre>
-<pre><code>## [1] &quot;TRUE FALSE FALSE TRUE ... &quot;</code></pre>
-<pre><code>## [1] &quot; Se utiliza la función sum() para contar cuántos valores son TRUE. &quot;</code></pre>
-<pre><code>## [1] &quot; Se usa na.rm = TRUE para ignorar registros con valores faltantes. &quot;</code></pre>
-<pre><code>## [1] &quot; Se usa na.rm = TRUE para ignorar registros con valores faltantes. &quot;</code></pre>
-<pre><code>## [1] &quot;Se buscan directamente la URL &quot;</code></pre>
-<pre><code>## [1] 2382</code></pre>
+<div id="pregunta-5" class="section level2">
+<h2>PREGUNTA 5</h2>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Si separamos la petición en 3 partes (Tipo, URL, Protocolo),
+usando str_split y el separador ” ” (espacio), ¿cuantas peticiones
+buscan directamente la URL = “/”?</strong></li>
+</ol>
+<p style="margin-left: 40px;color: blue;">
+Hay <strong>2382</strong> peticiones que buscan la URL = “/”?.
+</p>
 </div>
 <div id="paso-p6" class="section level2">
 <h2>Paso P6</h2>
 <pre><code>## [1] 47748</code></pre>
 <pre><code>## [1] &quot;Se Finalizo los ejercicios&quot;</code></pre>
+<p><strong>47748</strong> no tienen peticiones http02.</p>
 </div>
 </div>
 
