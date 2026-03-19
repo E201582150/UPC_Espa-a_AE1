@@ -1,0 +1,51 @@
+---
+title: "Actividad Evaluable 2 "
+output: html_document
+date: "2026-03-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Datos Elegantes + Análisis de Datos con Web Scrapping
+
+## Pregunta 1
+Queremos programar un programa de tipo web scrapping con el que podamos obtener 
+una página web, mediante su URL, y poder analizar su contenido HTML con tal de extraer 
+datos e información específica. 
+Nuestro programa ha de ser capaz de cumplir con los siguientes pasos: 
+
+
+**1. Descargar la página web de la URL indicada, y almacenarlo en un formato de R 
+apto para ser tratado.**
+
+El primer paso para realizar tareas de crawling y scraping es poder descargar los 
+datos de la web. Para esto usaremos la capacidad de R y de sus librerías (httr y 
+XML) para descargar webs y almacenarlas en variables que podamos convertir 
+en un formato fácil de analizar (p.e. de HTML a XML).
+
+## install.packages("httr")
+## install.packages("XML")
+
+library(httr)
+library(XML)
+
+html <- GET("https://upcschool.upc.edu/")
+content <- content(html, as = "text")
+parsedHtml <- htmlParse(content, asText = TRUE)
+
+title <- xpathSApply(parsedHtml, "//title", xmlValue)
+
+images_url <- xpathSApply(parsedHtml, "//img", xmlGetAttr, 'src')
+
+
+**2. Analizar el contenido de la web, buscando el título de la página (que en HTML 
+se etiqueta como “title”).**
+
+En las cabeceras web encontramos información como el título, los ficheros de 
+estilo visual, y meta-información como el nombre del autor de la página, una 
+descripción de esta, el tipo de codificación de esta, o palabras clave que indican 
+qué tipo de información contiene la página. Una vez descargada la página, y 
+convertida a un formato analizable (como XML), buscaremos los elementos de 
+tipo “title”. P.e. “<title>Titulo de Página</title>”. 
