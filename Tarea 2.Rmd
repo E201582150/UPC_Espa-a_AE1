@@ -149,6 +149,9 @@ NULLs a NA, no los filtramos para nuestro data.frame, nos será útil indicar
 que se ignoren los NA para estas operaciones. 
 
 
+
+
+
 **3. Un gráfico de tarta (pie chart) indicando los porcentajes de Status de nuestro 
 análisis.** 
 
