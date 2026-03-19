@@ -20,6 +20,9 @@ respuesta <- GET(url)
 # VERIFICAR QUE LA PETICIÓN FUE EXITOSA (200 = OK)
 status_code(respuesta)
 
+
+
+```{r Pregunta1, echo=FALSE, warning=FALSE, error=FALSE}
 # EXTRAER CONTENIDO HTML COMO TEXTO
 html_texto <- content(respuesta, as = "text", encoding = "UTF-8")
 
@@ -28,8 +31,5 @@ html_parseado <- read_html(html_texto)
 
 # PRUEBA: OBTENER EL TÍTULO DE LA PÁGINA
 html_title(html_parseado)
-
-```{r Pregunta1a, echo=FALSE, warning=FALSE, error=FALSE}
-
 
 ```
