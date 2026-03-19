@@ -8,28 +8,49 @@ date: "2026-03-19"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 1. Datos Elegantes + Análisis de Datos con Web Scrapping
 
+```{r librerias, echo=FALSE, warning=FALSE, error=FALSE}
+library(httr)
+library(rvest)
+library(XML)
+library(httr)
+
+```
+
+# 1. Datos Elegantes + Análisis de Datos con Web Scrapping
+## Descargar la página web de la URL indicada, y almacenarlo en un formato de R apto para ser tratado
 
 ```{r Pregunta1a, echo=FALSE, warning=FALSE, error=FALSE}
 
-library(httr)
-
 url <- "https://es.wikipedia.org/wiki/Anexo:Presidentes_del_Per%C3%BA"
-res <- GET(url)
+html <- read_html(url)
+```
 
-# Tamaño en bytes
-size_bytes <- length(content(res, "raw"))
 
-# Convertir a KB
-size_kb <- size_bytes/1024
 
-size_kb
+## P2 Analizar el contenido de la web, buscando el título de la página (que en HTML se etiqueta como “title”).
+##
 
-library(rvest)
+```{r Pregunta2, echo=FALSE, warning=FALSE, error=FALSE}
+titulo <- html %>%
+  html_node("title") %>%
+  html_text(trim = TRUE)
 
-url <- "https://es.wikipedia.org/wiki/Anexo:Presidentes_del_Per%C3%BA"
-page <- read_html(url)
+titulo
+```
+
+
+
+## P3 Analizar el contenido de la web, buscando todos los enlaces (que en HTML se etiquetan como “a”), buscando el texto del enlace, así como la URL
+
+
+```{r Pregunta3, echo=FALSE, warning=FALSE, error=FALSE}
+
+urls <- html |> html_elements("a") |> html_attr("href")
+```
+
+
+
 
 links <- page %>%
   html_nodes("table.wikitable a") %>%  # selecciona enlaces dentro de la tabla
@@ -37,11 +58,7 @@ links <- page %>%
 
 links
 
-titulo <- page %>%
-  html_node("title") %>%
-  html_text(trim = TRUE)
 
-titulo
 
 
 ```
@@ -84,15 +101,11 @@ b. Tamaño Archivo: **`r size_kb`** Kbs
 c. Cantidad de enlaces: **`r length(links)`**
 </p>
 
-# Fin P1
 
 
 
-## install.packages("httr")
-## install.packages("XML")
 
-library(httr)
-library(XML)
+
 
 html <- GET("https://upcschool.upc.edu/")
 content <- content(html, as = "text")
