@@ -38,13 +38,108 @@ html_parseado <- read_html(html_texto)
 ```
 
 ```{r Pregunta2, echo=FALSE}
+# BUSCAR EL NODO <title> USANDO XPATH
+nodo_title <- xml_find_first(html_parseado, "//title")
+
+# EXTRAER EL TEXTO DEL TÍTULO
+titulo_pagina <- xml_text(nodo_title)
+
+# MOSTRAR TÍTULO
+titulo_pagina
 ```
 
 ```{r Pregunta3, echo=FALSE}
+# BUSCAR TODOS LOS NODOS <a>
+enlaces <- xml_find_all(html_parseado, ".//a")
+
+# EXTRAER TEXTO DEL ENLACE
+texto_enlace <- xml_text(enlaces, trim = TRUE)
+
+# EXTRAER URL (ATRIBUTO href)
+url_enlace <- xml_attr(enlaces, "href")
+
+# REEMPLAZAR VACÍOS POR NA
+texto_enlace[texto_enlace == ""] <- NA
+url_enlace[url_enlace == ""] <- NA
+
+# CREAR DATA FRAME DE ENLACES
+tabla_enlaces <- data.frame(
+  texto = texto_enlace,
+  url = url_enlace,
+  stringsAsFactors = FALSE
+)
+
+# VER RESULTADO
+head(tabla_enlaces)
 ```
 
 ```{r Pregunta4, echo=FALSE}
+# CONTAR APARICIONES POR URL
+conteo_enlaces <- table(tabla_enlaces$url)
+
+# CONVERTIR A DATA FRAME
+tabla_conteo <- data.frame(
+  url = names(conteo_enlaces),
+  numero_apariciones = as.vector(conteo_enlaces),
+  stringsAsFactors = FALSE
+)
+
+# ASIGNAR EL TEXTO DEL ENLACE (PRIMER TEXTO ENCONTRADO POR URL)
+texto_por_url <- tapply(tabla_enlaces$texto, tabla_enlaces$url, function(v) v[1])
+
+tabla_conteo$texto <- texto_por_url[tabla_conteo$url]
+
+# ORDENAR COLUMNAS
+tabla_conteo <- tabla_conteo[, c("texto", "url", "numero_apariciones")]
+
+# VER RESULTADO
+head(tabla_conteo)
 ```
 
 ```{r Pregunta5, echo=FALSE}
+
+# DOMINIO BASE
+dominio_base <- "https://www.wikipedia.org"
+
+# NORMALIZAR URL
+normalizar_url <- function(u) {
+  if (is.na(u) || u == "") return(NA)
+  if (grepl("^http", u)) return(u)
+  if (grepl("^//", u)) return(paste0("https:", u))
+  if (grepl("^#", u)) return(NA)   # ignoramos anclas
+  paste0(dominio_base, u)
+}
+
+# NORMALIZAR URLS
+tabla_conteo$url_absoluta <- sapply(tabla_conteo$url, normalizar_url)
+
+# ELIMINAR URLs NA
+tabla_limpia <- subset(tabla_conteo, !is.na(url_absoluta))
+
+# ELIMINAR DUPLICADOS (CLAVE PARA RENDIMIENTO)
+tabla_limpia <- tabla_limpia[!duplicated(tabla_limpia$url_absoluta), ]
+
+# FUNCIÓN SEGURA PARA OBTENER STATUS HTTP
+obtener_status <- function(u) {
+  tryCatch({
+    r <- HEAD(u, timeout(3))
+    status_code(r)
+  }, error = function(e) NA)
+}
+
+# CONSULTAR STATUS (RÁPIDO)
+tabla_limpia$status_code <- sapply(tabla_limpia$url_absoluta, obtener_status)
+
+# TABLA FINAL
+tabla_final <- data.frame(
+  texto = tabla_limpia$texto,
+  url = tabla_limpia$url_absoluta,
+  veces_visto = tabla_limpia$numero_apariciones,
+  estado_http = tabla_limpia$status_code,
+  stringsAsFactors = FALSE
+)
+
+# RESULTADO
+head(tabla_final)
+
 ```
