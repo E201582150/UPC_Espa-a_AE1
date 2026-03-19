@@ -7,29 +7,44 @@ output: html_document
 # install.packages("httr")
 # install.packages("xml2")
 
-# CARGA DE LIBRERÍAS
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr) 
+library(stringr) 
+
 library(httr)
 library(xml2)
 
-# DEFINIR URL
+```
+
+
+```{r Pregunta1, echo=FALSE}
+
+# DEFINIR LA URL
 url <- "https://www.wikipedia.org/"
 
-# DESCARGAR PÁGINA WEB
+# DESCARGAR LA PÁGINA WEB
 respuesta <- GET(url)
 
-# VERIFICAR QUE LA PETICIÓN FUE EXITOSA (200 = OK)
+# COMPROBAR RESULTADO DE LA PETICIÓN
 status_code(respuesta)
 
-
-
-```{r Pregunta1, echo=FALSE, warning=FALSE, error=FALSE}
-# EXTRAER CONTENIDO HTML COMO TEXTO
+# EXTRAER HTML COMO TEXTO
 html_texto <- content(respuesta, as = "text", encoding = "UTF-8")
 
-# PARSEAR HTML A FORMATO ANALIZABLE (XML/HTML)
+# PARSEAR HTML A FORMATO XML
 html_parseado <- read_html(html_texto)
 
-# PRUEBA: OBTENER EL TÍTULO DE LA PÁGINA
-html_title(html_parseado)
+```
 
+```{r Pregunta2, echo=FALSE}
+```
+
+```{r Pregunta3, echo=FALSE}
+```
+
+```{r Pregunta4, echo=FALSE}
+```
+
+```{r Pregunta5, echo=FALSE}
 ```
