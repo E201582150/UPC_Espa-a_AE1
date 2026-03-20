@@ -83,27 +83,6 @@ df_links$status_code <- sapply(df_links$links_abs, FUN = function(x){
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## Pregunta 2: 
 Elaborad, usando las librerías de gráficos base y qplot (ggplot2), una infografía sobre los 
 datos obtenidos. Tal infografía será una reunión de gráficos donde se muestren los 
@@ -113,7 +92,6 @@ siguientes detalles:
 URLs absolutas (con “http…”) y URLs relativas.** 
 
 ```{r Pregunta2.1, echo=FALSE, warning=FALSE, error=FALSE}
-
 tabla <- table(df_links$links)
 df_links$frecuencia <- tabla[df_links$links]
 
@@ -127,7 +105,6 @@ count(df_filtrado_Rel,n)
 
 hist(x = df_filtrado_Rel$frecuencia, breaks = 10, col = "blue", main = "Histograma de frecuencia de aparición de los enlaces", xlab = "Enlaces Relativo", ylab = "Frecuencia")
 hist(x = df_filtrado_Abs$frecuencia, breaks = 10, col = "red", main = "Histograma de frecuencia de aparición de los enlaces", xlab = "Enlaces Absoluta", ylab = "Frecuencia")
-
 ```
 
 
@@ -150,6 +127,13 @@ que se ignoren los NA para estas operaciones.
 
 
 
+```{r Pregunta2.1, echo=FALSE, warning=FALSE, error=FALSE}
+df_links <- df_links %>% mutate(es_interno = grepl(url_base, links_abs))
+
+g <- ggplot(df_links, aes(x = es_interno, fill = es_interno)) + geom_bar() + theme_dark()
+g
+```
+
 
 
 **3. Un gráfico de tarta (pie chart) indicando los porcentajes de Status de nuestro 
@@ -164,3 +148,26 @@ gráficos están compuestos directamente desde R (y no en el documento memoria),
 puntuará mejor. 
 Indicar a continuación la solución, justificando cada detalle y decisión tomada, e 
 incluyendo los gráficos.
+
+
+```{r Pregunta2.3, echo=FALSE, warning=FALSE, error=FALSE}
+
+df_links2 <- df_links
+df_links2$status_code <- as.character(df_links2$status_code)
+df_links3 <- df_links2 %>% count(status_code)
+
+ggplot(df_links3, aes(x = "", y = n, fill = status_code)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  theme_void() +
+  labs(title = "Distribución de enlaces por status_code") +
+  geom_text(aes(label = n),
+            position = position_stack(vjust = 0.5),
+            color = "white",
+            size = 5) +
+  scale_fill_manual(values = c(
+    "200" = "steelblue",
+    "400" = "tomato",
+    "404" = "red"
+  ))
+```
