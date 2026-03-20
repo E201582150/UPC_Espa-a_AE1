@@ -18,27 +18,37 @@ library(stringr)
 
 **De las siguientes preguntas, clasifica cada una como descriptiva, exploratoria, inferencia, predictiva o causal, y razona brevemente (una frase) el porqué:**
 
-1. Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
+1.  Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
 <p style="margin-left: 40px;color: blue;">
-      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas**.</p>
 
-2. Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
+**En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Anàlisis descriptivo, porque el objetivo de este es caracterizar y resumir un conjunto de datos mediante estadisticas descriptivas**.
 
-<p style="margin-left: 40px;color: blue;">
-      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.**.</p>
+</p>
 
-
-3. Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía? 
+2.  Dado un registro de visualizaciones de un servicio de video-on-demand, donde disponemos de los datos del usuario, de la película seleccionada, fecha de visualización y categoría de la película, queremos saber ¿Hay alguna preferencia en cuanto a género literario según los usuarios y su rango de edad?
 
 <p style="margin-left: 40px;color: blue;">
-      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.**.</p>
 
-    
-4. Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos? 
+**En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis inferencial porque se pretende evaluar la existencia de asociaciones significativas entre variables sociodemográficas y preferencias de contenido, extrapolando conclusiones más allá de la muestra observada.**.
+
+</p>
+
+3.  Dado un registro de peticiones a un sitio web, vemos que las peticiones que provienen de una red de telefonía concreta acostumbran a ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar si en el futuro, los próximos mensajes de esa red seguirán dando problemas? ¿Hemos notado el mismo efecto en otras redes de telefonía? 
 
 <p style="margin-left: 40px;color: blue;">
-      **En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.**.</p>
+
+**En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un Análisis predictivo debido a que el interès central radica en modelar patrones históricos para anticipar la probabilidad de fallos futuros asociados a una red específica y contrastarlos con otras redes.**.
+
+</p>
+
+4.  Dado los registros de usuarios de un servicio de compras por internet, los usuarios pueden agruparse por preferencias de productos comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y según su historial, pueda ser directamente asignado a un o diversos grupos?
+
+<p style="margin-left: 40px;color: blue;">
+
+**En base a la descripciòn que realiza con respecto a las preguntas se concluye que es un análisis exploratorio debido a que se busca identificar estructuras latentes o patrones de segmentación en los datos mediante técnicas de agrupamiento, sin una variable dependiente previamente definida.**.
+
+</p>
 
 ## PREGUNTA 2
 
@@ -49,10 +59,10 @@ library(stringr)
 **Explica con detalle cómo se podría proceder al análisis y resolución del problema mediante Data Science, indicando de donde se obtendrían los datos, qué tratamiento deberían recibir, qué preguntas hacerse para resolver el problema, qué datos y gráficos se obtendrían, y cómo se comunicarían estos.**
 
 <p style="margin-left: 40px;color: blue;">
-      **Consideramos que para abordar el escenario a travès de Data Science, debemos contemplar un anàlisis basado en los logs històricos de conexiones TCP salientes de todos los equipos corporativos, con el fin de poder identificar cuales son estos equipos y tener el listado de usuarios que son posibles sospechosos para poder reducir nuestro universo de casos. Cabe mencionar que estos registros deben ser obtenidos tanto de los sistemas operativos, SIEM, herramientas de monitorizaciòn, firewall, entre otros que permitan analizar las direcciones IP considerand los puertos utilizados.<br>
-      <br> Posterior al paso mencionado, se debe realizar una limpieza de datos "datos elegantes", en el cual se tiene que depurar los registros incompletos o duplicados con el fin de enriquecer la informaciòn a travès de la identificaciòn de puertos permitidos, rangos de IP legìtimos de clientes, y horarios de jornadas laborales. Esta actividad es crìtica para poder determinar la identificaciòn del comportamiento atìpicos.<br>
-    <br>  Con respecto a las preguntas, podemos considerar preguntas como: què tipo de equipos establecieron conexiones a servicios no autorizados, el tiempo que tuvo esa conexiòn, asì como los patrones temporales anòmalos y si las direcciones IP externas corresponden a ubicaciones habituales del negocio.<br>
-     <br> Para ello, pueden aplicarse técnicas de análisis exploratorio y detección de anomalías, con el fin de reducir el conjunto de posibles equipos implicados. Y asì los resultados se presentarían mediante visualizaciones como distribuciones de uso de puertos o series temporales de conexiones, destacando los riesgos observados y reforzando la importancia del cumplimiento de las políticas de seguridad, sin adoptar un enfoque culposo.**</p>
+
+**Consideramos que para abordar el escenario a travès de Data Science, debemos contemplar un anàlisis basado en los logs històricos de conexiones TCP salientes de todos los equipos corporativos, con el fin de poder identificar cuales son estos equipos y tener el listado de usuarios que son posibles sospechosos para poder reducir nuestro universo de casos. Cabe mencionar que estos registros deben ser obtenidos tanto de los sistemas operativos, SIEM, herramientas de monitorizaciòn, firewall, entre otros que permitan analizar las direcciones IP considerand los puertos utilizados.**<br> <br> Posterior al paso mencionado, se debe realizar una limpieza de datos "datos elegantes", en el cual se tiene que depurar los registros incompletos o duplicados con el fin de enriquecer la informaciòn a travès de la identificaciòn de puertos permitidos, rangos de IP legìtimos de clientes, y horarios de jornadas laborales. Esta actividad es crìtica para poder determinar la identificaciòn del comportamiento atìpicos.<br> <br> Con respecto a las preguntas, podemos considerar preguntas como: què tipo de equipos establecieron conexiones a servicios no autorizados, el tiempo que tuvo esa conexiòn, asì como los patrones temporales anòmalos y si las direcciones IP externas corresponden a ubicaciones habituales del negocio.<br> <br> Para ello, pueden aplicarse técnicas de análisis exploratorio y detección de anomalías, con el fin de reducir el conjunto de posibles equipos implicados. Y asì los resultados se presentarían mediante visualizaciones como distribuciones de uso de puertos o series temporales de conexiones, destacando los riesgos observados y reforzando la importancia del cumplimiento de las políticas de seguridad, sin adoptar un enfoque culposo.
+
+</p>
 
 # INTRODUCCION A R
 
@@ -71,14 +81,19 @@ colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo"
 epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
 epa_http$Bytes <- as.numeric(epa_http$Bytes) 
 ```
+
 <p style="margin-left: 40px;color: blue;">
+
 El numero de filas y columnas es: **`r dim(epa_http)`**
+
 </p>
 
 2.  **Valor medio de la columna Bytes**
 
 <p style="margin-left: 40px;color: blue;">
+
 El valor medio es: **`r mean(epa_http$Bytes, na.rm = TRUE)`**
+
 </p>
 
 ## PREGUNTA 2
@@ -93,10 +108,14 @@ ips_edu <- epa_http$IP[edu_ips]
 # Contar IPs únicas 
 unicas_edu <- length(unique(ips_edu)) 
 ```
-2. **De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?**
-<p style="margin-left: 40px;color: blue;">
-Pertenecen **`r unicas_edu`** IPs.
-</p>
+
+2.  **De las diferentes IPs de origen accediendo al servidor, ¿cuantas pertenecen a una IP claramente educativa (que contenga ".edu")?**
+
+    <p style="margin-left: 40px;color: blue;">
+
+    Pertenecen **`r unicas_edu`** IPs.
+
+    </p>
 
 ## PREGUNTA 3
 
@@ -126,12 +145,13 @@ cantidad_max <- max(tabla_horas)
 
 ```
 
-3. **De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?**
-<p style="margin-left: 40px;color: blue;">
-La hora en la que hay mayor volumen de peticiones HTTP de tipo GET es **`r hora_max`** con **`r cantidad_max`** peticiones.
-</p>
+3.  **De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen de peticiones HTTP de tipo "GET"?**
 
+    <p style="margin-left: 40px;color: blue;">
 
+    La hora en la que hay mayor volumen de peticiones HTTP de tipo GET es **`r hora_max`** con **`r cantidad_max`** peticiones.
+
+    </p>
 
 ## PREGUNTA 4
 
@@ -162,10 +182,12 @@ datos_filtrados <- epa_http[edu_filter & txt_filter, ]
 respuesta4 <- sum(datos_filtrados$Bytes, na.rm = TRUE)/1024
 ```
 
-4. **De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?**
+4.  **De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?**
 
 <p style="margin-left: 40px;color: blue;">
+
 Se han transmitido **`r respuesta4`** bytes de descarga de ficheros.
+
 </p>
 
 ## PREGUNTA 5
@@ -173,12 +195,14 @@ Se han transmitido **`r respuesta4`** bytes de descarga de ficheros.
 ```{r Pregunta5, echo=FALSE}
 respuesta5 <- sum(epa_http$URL == "/", na.rm = TRUE)
 ```
-5. **Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?**
+
+5.  **Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?**
 
 <p style="margin-left: 40px;color: blue;">
-Hay **`r respuesta5`** peticiones que buscan la URL = "/".
-</p>
 
+Hay **`r respuesta5`** peticiones que buscan la URL = "/".
+
+</p>
 
 ## Paso P6
 
@@ -198,8 +222,68 @@ total_peticiones_no_http02 <- sum(peticiones_no_http02, na.rm = TRUE)
 
 
 ```
-6. **Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"? **
-<p style="margin-left: 40px;color: blue;">
-**`r total_peticiones_no_http02`** no tienen peticiones http02.
-</p>
 
+6.  **Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?**
+
+    <p style="margin-left: 40px;color: blue;">
+
+    **`r total_peticiones_no_http02`** no tienen peticiones http02.
+
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### ====================================================
+
+# Análisis de logs de servidor usando R (parte II)
+
+### ====================================================
+
+## Obtención y carga de los Datos:
+
+#### 1. Descomprimir el fichero comprimido que contiene los registros del servidor, y a partir de los datos extraídos, cargar en data frame los registros con las peticiones servidas.
+
+#### 2. Incluid en el documento un apartado con la descripción de los datos analizados: fuente, tipología, descripción de la información contenida (los diferentes campos) y sus valores.
+
+### -----------------------------------------------------------------------------------------
+
+## Limpieza de los Datos
+
+### 3. Aprovechando que los datos a analizar son los mismos de la primera práctica, para esta entrega es imprescindible que los datos estén en formato de “datos elegantes”.
+
+### -----------------------------------------------------------------------------------------
+
+## Exploración de Datos
+
+#### 4. Identificar el número único de usuarios que han interactuado directamente con el servidor de forma segregada según si los usuarios han tenido algún tipo de error en las distintas peticiones ofrecidas por el servidor.
+
+### -----------------------------------------------------------------------------------------
+
+## Análisis de Datos
+
+#### 5. Analizar los distintos tipos de peticiones HTTP (GET, POST, PUT, DELETE) gestionadas por el servidor, identificando la frecuencia de cada una de estas. Repetir el análisis, esta vez filtrando previamente aquellas peticiones correspondientes a recursos ofrecidos de tipo imagen.
+
+### -----------------------------------------------------------------------------------------
+
+## Visualización de Resultados
+
+#### 6. Generar al menos 2 gráficos distintos que permitan visualizar alguna característica relevante de los datos analizados.
+
+##### *Estos deberán representar por lo menos 1 o 2 variables diferentes del data frame. Describid el gráfico e indicad cualquier observación destacable que se pueda apreciar gracias a la representación gráfica.*
+
+#### 7. Generar un gráfico que permita visualizar el número de peticiones servidas a lo largo del tiempo.
