@@ -13,8 +13,21 @@ library(tibble)
 library(knitr)
 library(dplyr)
 library(lubridate)
+library(ggplot2)
 
 ```
+
+```{r InstalacionLibrerias, echo=FALSE}
+librerias <- c("dplyr", "ggplot2", "lubridate", "stringr", "knitr")
+instaladas <- librerias %in% rownames(installed.packages())
+
+if (any(!instaladas)) {
+  install.packages(librerias[!instaladas])
+}
+
+lapply(librerias, library, character.only = TRUE)
+```
+
 
 #### [Alumnos]{.underline}:
 ##### (1) Depaz Cribillero, Cesar.
@@ -177,4 +190,64 @@ kable(
 
 ##### *Estos deberán representar por lo menos 1 o 2 variables diferentes del data frame. Describid el gráfico e indicad cualquier observación destacable que se pueda apreciar gracias a la representación gráfica.*
 
+
+##### Gráfico 1 – Frecuencia de peticiones HTTP por método
+```{r Grafico1_MetodosHTTP, echo=FALSE, warning=FALSE, message=FALSE}
+
+epa_http %>%
+  count(Metodo) %>%
+  ggplot(aes(x = Metodo, y = n, fill = Metodo)) +
+  geom_col(show.legend = FALSE) +
+  labs(
+    title = "Distribución de peticiones HTTP por método",
+    x = "Método HTTP",
+    y = "Número de peticiones"
+  ) +
+  theme_minimal()
+```
+
+
+##### Gráfico 2 – Distribución de respuestas HTTP: peticiones exitosas frente a peticiones con error
+```{r Grafico3_Exitos_Errores, echo=FALSE, warning=FALSE, message=FALSE}
+
+epa_http %>%
+  mutate(
+    Codigo = as.numeric(Codigo),
+    Tipo_Respuesta = if_else(Codigo < 400, "Éxito", "Error")
+  ) %>%
+  count(Tipo_Respuesta) %>%
+  ggplot(aes(x = Tipo_Respuesta, y = n, fill = Tipo_Respuesta)) +
+  geom_col(show.legend = FALSE) +
+  labs(
+    title = "Distribución de respuestas HTTP",
+    x = "Tipo de respuesta",
+    y = "Número de peticiones"
+  ) +
+  theme_minimal()
+```
+
 #### 7. Generar un gráfico que permita visualizar el número de peticiones servidas a lo largo del tiempo.
+
+##### Gráfico – Número de peticiones servidas a lo largo del tiempo
+
+```{r Grafico_Peticiones_Tiempo, echo=FALSE, warning=FALSE, message=FALSE}
+
+epa_http %>%
+  mutate(
+    # Codificar correctamente el timestamp
+    Timestamp = dmy_hms(Timestamp),
+    
+    # Extraer la fecha (nivel diario)
+    Fecha = as.Date(Timestamp)
+  ) %>%
+  count(Fecha) %>%
+  ggplot(aes(x = Fecha, y = n)) +
+  geom_line(color = "darkgreen", linewidth = 1) +
+  geom_point(color = "darkgreen", size = 2) +
+  labs(
+    title = "Evolución temporal del número de peticiones servidas",
+    x = "Fecha",
+    y = "Número de peticiones"
+  ) +
+  theme_minimal()
+```
