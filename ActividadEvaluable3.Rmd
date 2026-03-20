@@ -4,7 +4,8 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.align = "center")
+
 library(readr) 
 library(stringr) 
 library(httr)
@@ -14,18 +15,15 @@ library(knitr)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
+library(mltools)
+library(data.table)
 
 ```
 
-```{r InstalacionLibrerias, echo=FALSE}
-librerias <- c("dplyr", "ggplot2", "lubridate", "stringr", "knitr")
-instaladas <- librerias %in% rownames(installed.packages())
+```{r InstalacionLibrerias, echo=FALSE, message = FALSE}
 
-if (any(!instaladas)) {
-  install.packages(librerias[!instaladas])
-}
+install.packages(c("mltools", "data.table", "dplyr", "stringr", "ggplot2", "lubridate","knitr"))
 
-lapply(librerias, library, character.only = TRUE)
 ```
 
 
@@ -230,24 +228,167 @@ epa_http %>%
 
 ##### Gráfico – Número de peticiones servidas a lo largo del tiempo
 
-```{r Grafico_Peticiones_Tiempo, echo=FALSE, warning=FALSE, message=FALSE}
+```{r Grafico_Peticiones_Tiempo, echo=FALSE, fig.width=8, fig.height=5}
 
 epa_http %>%
   mutate(
-    # Codificar correctamente el timestamp
-    Timestamp = dmy_hms(Timestamp),
+    # Eliminar corchetes
+    Timestamp_limpio = str_remove_all(Timestamp, "\\[|\\]"),
     
-    # Extraer la fecha (nivel diario)
-    Fecha = as.Date(Timestamp)
+    # Separar componentes temporales
+    Dia = as.numeric(substr(Timestamp_limpio, 1, 2)),
+    Hora = as.numeric(substr(Timestamp_limpio, 4, 5)),
+    Minuto = as.numeric(substr(Timestamp_limpio, 7, 8)),
+    Segundo = as.numeric(substr(Timestamp_limpio, 10, 11)),
+    
+    # Tiempo total en segundos (escala continua)
+    Tiempo_segundos = Dia * 86400 + Hora * 3600 + Minuto * 60 + Segundo
   ) %>%
-  count(Fecha) %>%
-  ggplot(aes(x = Fecha, y = n)) +
-  geom_line(color = "darkgreen", linewidth = 1) +
-  geom_point(color = "darkgreen", size = 2) +
+  count(Tiempo_segundos) %>%
+  ggplot(aes(x = Tiempo_segundos, y = n)) +
+  geom_line(color = "blue", linewidth = 1) +
   labs(
     title = "Evolución temporal del número de peticiones servidas",
-    x = "Fecha",
+    x = "Tiempo (segundos)",
     y = "Número de peticiones"
+  ) +
+  theme_minimal()
+
+```
+
+
+### ====================================================
+# Clústering de datos
+### ====================================================
+
+## 
+
+#### 8. Utilizando un algoritmo de aprendizaje no supervisado, realizad un análisis de clústering con k-means para los datos del servidor.
+
+```{r Pregunta8_KMeans, echo=FALSE, warning=FALSE, message=FALSE}
+
+# -------------------------------
+# 1. Preprocesamiento de los datos
+# -------------------------------
+
+epa_cluster <- epa_http %>%
+  mutate(
+    # Longitud de la URL (variable numérica derivada)
+    URL_Length = nchar(URL),
+    
+    # Imputación de Bytes: NA -> 0 (por ejemplo, errores 404)
+    Bytes = as.numeric(Bytes),
+    Bytes = if_else(is.na(Bytes), 0, Bytes)
+  )
+
+# -------------------------------
+# 2. One-hot encoding de variables categóricas
+# -------------------------------
+
+epa_one_hot <- one_hot(
+  as.data.table(epa_cluster),
+  sparsifyNAs = TRUE
+)
+
+# -------------------------------
+# 3. Seleccionar solo columnas numéricas
+# -------------------------------
+
+epa_numeric <- epa_one_hot %>%
+  select(where(is.numeric)) %>%
+  as.data.frame()
+
+# -------------------------------
+# 4. Escalado de las variables
+# -------------------------------
+
+epa_scaled <- scale(epa_numeric)
+
+# -------------------------------
+# 5. K-means con distintos valores de k
+# -------------------------------
+
+set.seed(123)
+
+kmeans_k2 <- kmeans(epa_scaled, centers = 2, nstart = 25)
+kmeans_k4 <- kmeans(epa_scaled, centers = 4, nstart = 25)
+
+# -------------------------------
+# 6. Tamaño de los clústeres
+# -------------------------------
+
+cat("Resultados k = 2\n")
+print(kmeans_k2$size)
+
+cat("\nResultados k = 4\n")
+print(kmeans_k4$size)
+```
+
+#### 9. Representad visualmente en gráficos de tipo scatter plot el resultado de vuestros clústering y interpretad el resultado obtenido
+
+```{r Pregunta9_Clustering_Scatter, echo=FALSE, warning=FALSE, message=FALSE, fig.width=7, fig.height=5}
+
+# --------------------------------
+# Preparar datos para visualización
+# --------------------------------
+
+epa_viz <- epa_cluster %>%
+  mutate(
+    Bytes = as.numeric(Bytes),
+    Bytes = if_else(is.na(Bytes), 0, Bytes)
+  ) %>%
+  select(URL_Length, Bytes)
+
+# --------------------------------
+# Scatter plot para k = 2
+# --------------------------------
+
+epa_viz$Cluster <- factor(kmeans_k2$cluster)
+
+ggplot(epa_viz, aes(x = URL_Length, y = Bytes, color = Cluster)) +
+  geom_point(alpha = 0.6) +
+  labs(
+    title = "Clústering k-means con k = 2",
+    x = "Longitud de la URL",
+    y = "Bytes servidos"
+  ) +
+  theme_minimal()
+
+# --------------------------------
+# Scatter plot para k = 4
+# --------------------------------
+
+epa_viz$Cluster <- factor(kmeans_k4$cluster)
+
+ggplot(epa_viz, aes(x = URL_Length, y = Bytes, color = Cluster)) +
+  geom_point(alpha = 0.6) +
+  labs(
+    title = "Clústering k-means con k = 4",
+    x = "Longitud de la URL",
+    y = "Bytes servidos"
+  ) +
+  theme_minimal()
+```
+
+```{r Cluster_k2_Scatter, echo=FALSE, fig.width=7, fig.height=5}
+library(dplyr)
+library(ggplot2)
+
+epa_viz <- epa_cluster %>%
+  mutate(
+    Bytes = as.numeric(Bytes),
+    Bytes = if_else(is.na(Bytes), 0, Bytes)
+  ) %>%
+  select(URL_Length, Bytes)
+
+epa_viz$Cluster <- factor(kmeans_k2$cluster)
+
+ggplot(epa_viz, aes(x = URL_Length, y = Bytes, color = Cluster)) +
+  geom_point(alpha = 0.6) +
+  labs(
+    title = "Clústering k-means con k = 2",
+    x = "Longitud de la URL",
+    y = "Bytes servidos"
   ) +
   theme_minimal()
 ```
