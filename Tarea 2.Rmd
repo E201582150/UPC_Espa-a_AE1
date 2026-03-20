@@ -84,12 +84,9 @@ df_links$status_code <- sapply(df_links$links_abs, FUN = function(x){
 
 
 ## Pregunta 2: 
-Elaborad, usando las librerías de gráficos base y qplot (ggplot2), una infografía sobre los 
-datos obtenidos. Tal infografía será una reunión de gráficos donde se muestren los 
-siguientes detalles: 
+Elaborad, usando las librerías de gráficos base y qplot (ggplot2), una infografía sobre los datos obtenidos. Tal infografía será una reunión de gráficos donde se muestren los siguientes detalles: 
 
-**1. Un histograma con la frecuencia de aparición de los enlaces, pero separado por 
-URLs absolutas (con “http…”) y URLs relativas.** 
+**1. Un histograma con la frecuencia de aparición de los enlaces, pero separado por URLs absolutas (con “http…”) y URLs relativas.** 
 
 ```{r Pregunta2.1, echo=FALSE, warning=FALSE, error=FALSE}
 tabla <- table(df_links$links)
@@ -98,7 +95,7 @@ df_links$frecuencia <- tabla[df_links$links]
 df_filtrado_Abs <- df_links %>% filter(grepl("^https", links))
 df_filtrado_Rel <- df_links %>% filter(!grepl("^https", links))
 
-##filter(df_links$valor, df_links$links == "https")
+filter(df_links$valor, df_links$links == "https")
 
 summary(df_filtrado_Rel$n)
 count(df_filtrado_Rel,n)
@@ -109,25 +106,16 @@ hist(x = df_filtrado_Abs$frecuencia, breaks = 10, col = "red", main = "Histogram
 
 
 
-**2. Un gráfico de barras indicando la suma de enlaces que apuntan a otros 
-dominios o servicios (distinto a https://www.mediawiki.org en el caso de 
-ejemplo) vs. la suma de los otros enlaces.** 
-Aquí queremos distinguir enlaces que apuntan a mediawiki versus el resto. 
-Sabemos que las URLs relativas ya apuntan dentro, por lo tanto hay que analizar 
-las URLs absolutas y comprobar que apunten a https://www.mediawiki.org. 
+**2. Un gráfico de barras indicando la suma de enlaces que apuntan a otros dominios o servicios (distinto a https://www.mediawiki.org en el caso de ejemplo) vs. la suma de los otros enlaces.** 
+Aquí queremos distinguir enlaces que apuntan a mediawiki versus el resto. Sabemos que las URLs relativas ya apuntan dentro, por lo tanto hay que analizar las URLs absolutas y comprobar que apunten a https://www.mediawiki.org. 
 
 Pista: 
-▪ Cuando usamos la función sum() o similares sobre un vector con valores 
-NA, nos encontramos que el resultado es NA. Esto se da porque no se 
-puede conocer una suma que incluye un elemento “desconocido”. R 
-permite incluir un parámetro a estas funciones “na.rm = TRUE” para 
-indicar que se ignoren los elementos NA. Si para cuando convertimos 
-NULLs a NA, no los filtramos para nuestro data.frame, nos será útil indicar 
-que se ignoren los NA para estas operaciones. 
+▪ Cuando usamos la función sum() o similares sobre un vector con valores NA, nos encontramos que el resultado es NA. Esto se da porque no se 
+puede conocer una suma que incluye un elemento “desconocido”. R permite incluir un parámetro a estas funciones “na.rm = TRUE” para indicar que se ignoren los elementos NA. Si para cuando convertimos NULLs a NA, no los filtramos para nuestro data.frame, nos será útil indicar que se ignoren los NA para estas operaciones. 
 
 
 
-```{r Pregunta2.1, echo=FALSE, warning=FALSE, error=FALSE}
+```{r Pregunta2.2, echo=FALSE, warning=FALSE, error=FALSE}
 df_links <- df_links %>% mutate(es_interno = grepl(url_base, links_abs))
 
 g <- ggplot(df_links, aes(x = es_interno, fill = es_interno)) + geom_bar() + theme_dark()
@@ -136,18 +124,10 @@ g
 
 
 
-**3. Un gráfico de tarta (pie chart) indicando los porcentajes de Status de nuestro 
-análisis.** 
+**3. Un gráfico de tarta (pie chart) indicando los porcentajes de Status de nuestro análisis.** 
 
-Por ejemplo, si hay 6 enlaces con status “200” y 4 enlaces con status “404”, la 
-tarta mostrará un 60% con la etiqueta “200” y un 40% con la etiqueta “404”. Este 
-gráfico lo uniremos a los anteriores. El objetivo final es obtener una imagen que 
-recopile los gráficos generados. 
-Usad la capacidad de R y ggplot2 para componer gráficos en una sola figura. Si tales 
-gráficos están compuestos directamente desde R (y no en el documento memoria), se 
-puntuará mejor. 
-Indicar a continuación la solución, justificando cada detalle y decisión tomada, e 
-incluyendo los gráficos.
+Por ejemplo, si hay 6 enlaces con status “200” y 4 enlaces con status “404”, la tarta mostrará un 60% con la etiqueta “200” y un 40% con la etiqueta “404”. Este gráfico lo uniremos a los anteriores. El objetivo final es obtener una imagen que recopile los gráficos generados. Usad la capacidad de R y ggplot2 para componer gráficos en una sola figura. Si tales gráficos están compuestos directamente desde R (y no en el documento memoria), se 
+puntuará mejor. Indicar a continuación la solución, justificando cada detalle y decisión tomada, e incluyendo los gráficos.
 
 
 ```{r Pregunta2.3, echo=FALSE, warning=FALSE, error=FALSE}

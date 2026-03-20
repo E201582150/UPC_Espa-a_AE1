@@ -1,0 +1,180 @@
+---
+title: "ActividadEvaluable3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr) 
+library(stringr) 
+library(httr)
+library(xml2)
+library(tibble)
+library(knitr)
+library(dplyr)
+library(lubridate)
+
+```
+
+#### [Alumnos]{.underline}:
+##### (1) Depaz Cribillero, Cesar.
+##### (2) Castillo Pintado, Jaime.
+##### (3) Rivas Tucto, Jerson.
+##### (4) Somoza Buitron, Bruno.
+
+
+### ====================================================
+# Análisis de logs de servidor usando R (parte II)
+### ====================================================
+
+## Obtención y carga de los Datos:
+
+#### 1. Descomprimir el fichero comprimido que contiene los registros del servidor, y a partir de los datos extraídos, cargar en data frame los registros con las peticiones servidas.
+
+```{r Pregunta1, echo=FALSE, warning=FALSE, error=FALSE}
+# Leemos el archivo CSV
+epa_http <- read_table("epa-http.csv", col_names = FALSE, show_col_types = F)
+
+# CAMBIO NOMBRE COLUMNAS
+colnames(epa_http) <- c("IP","Timestamp","Metodo", "URL", "Protocolo" , "Codigo", "Bytes")
+
+# Luego asignamos las etiquetas para una mejor lectura: IP,Timestamp,Metodo,URL,Protocolo,Codigo,Bytes")
+epa_http$Bytes[epa_http$Bytes == "-"] <- NA 
+epa_http$Bytes <- as.numeric(epa_http$Bytes) 
+
+Resultado_Pregunta1 <- "Se realiza la carga en el data frame."
+```
+*Respuesta:* `r Resultado_Pregunta1`
+
+
+#### 2. Incluid en el documento un apartado con la descripción de los datos analizados: fuente, tipología, descripción de la información contenida (los diferentes campos) y sus valores.
+
+
+```{r Pregunta2, echo=FALSE}
+
+Pregunta2 <- tibble(
+  Variable = c("IP", "Timestamp", "Metodo", "URL", 
+               "Protocolo", "Codigo", "Bytes"),
+  
+  Tipo = c("Carácter",
+           "Carácter / Fecha-hora",
+           "Carácter",
+           "Carácter",
+           "Carácter",
+           "Entero",
+           "Numérico"),
+  
+  Descripcion = c(
+    "Dirección IP del cliente que realiza la petición HTTP.",
+    "Fecha y hora en la que se registra la petición al servidor.",
+    "Método HTTP empleado en la solicitud (GET, POST, etc.).",
+    "Recurso o ruta solicitada al servidor web.",
+    "Protocolo y versión utilizados en la comunicación HTTP.",
+    "Código de estado HTTP devuelto por el servidor (200, 404, etc.).",
+    "Tamaño de la respuesta enviada al cliente, medido en bytes."
+  )
+)
+kable(Pregunta2, caption = "")
+```
+
+      
+### -----------------------------------------------------------------------------------------
+
+## Limpieza de los Datos
+
+#### 3. Aprovechando que los datos a analizar son los mismos de la primera práctica, para esta entrega es imprescindible que los datos estén en formato de “datos elegantes”.
+
+```{r Pregunta3, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Transformar los datos a formato elegante
+epa_tidy <- epa_http %>%
+  mutate(
+    Timestamp = dmy_hms(Timestamp),  # Convertir a fecha-hora
+    Hora = hour(Timestamp)           # Extraer la hora
+  )
+
+Resultado_Pregunta3 <- "Se realiza la carga en el data frame."
+```
+*Respuesta:* `r Resultado_Pregunta3`
+
+### -----------------------------------------------------------------------------------------
+
+## Exploración de Datos
+
+#### 4. Identificar el número único de usuarios que han interactuado directamente con el servidor de forma segregada según si los usuarios han tenido algún tipo de error en las distintas peticiones ofrecidas por el servidor.
+
+```{r Pregunta4, echo=FALSE, warning=FALSE, message=FALSE}
+
+# Identificar si cada petición contiene un error HTTP (4xx o 5xx)
+epa_tidy <- epa_http %>%
+  mutate(
+    Codigo = as.numeric(Codigo),
+    Error = Codigo >= 400
+  )
+
+# Determinar si cada usuario (IP) ha tenido al menos un error
+usuarios_por_error <- epa_tidy %>%
+  group_by(IP) %>%
+  summarise(
+    Tiene_Error = any(Error),
+    .groups = "drop"
+  )
+
+# Calcular los valores finales
+usuarios_con_error <- sum(usuarios_por_error$Tiene_Error)
+usuarios_sin_error <- sum(!usuarios_por_error$Tiene_Error)
+
+```
+*Respuesta:* La cantidad de usuarios con error es `r usuarios_con_error` y la cantidad de usuarios sin error es `r usuarios_sin_error`.
+
+
+
+### -----------------------------------------------------------------------------------------
+
+## Análisis de Datos
+
+#### 5. Analizar los distintos tipos de peticiones HTTP (GET, POST, PUT, DELETE) gestionadas por el servidor, identificando la frecuencia de cada una de estas. Repetir el análisis, esta vez filtrando previamente aquellas peticiones correspondientes a recursos ofrecidos de tipo imagen.
+
+```{r Pregunta5, echo=FALSE, warning=FALSE, message=FALSE}
+
+# -------------------------------
+# Tabla 1: Frecuencia de métodos HTTP (todas las peticiones)
+# -------------------------------
+
+tabla_metodos <- epa_http %>%
+  count(Metodo, name = "Frecuencia") %>%
+  arrange(desc(Frecuencia)) %>%
+  slice_head(n = 3)   # Garantiza formato 3x2
+
+kable(
+  tabla_metodos,
+  caption = "Frecuencia de los principales métodos HTTP:"
+)
+
+# -------------------------------
+# Tabla 2: Frecuencia de métodos HTTP para recursos de tipo imagen
+# -------------------------------
+
+patron_imagenes <- "\\.(jpg|jpeg|png|gif|bmp|svg|ico|webp|xbm|imagemap)$"
+
+tabla_metodos_imagenes <- epa_http %>%
+  filter(str_detect(tolower(URL), patron_imagenes)) %>%
+  count(Metodo, name = "Frecuencia") %>%
+  arrange(desc(Frecuencia)) %>%
+  slice_head(n = 3)   # Garantiza formato 3x2
+
+kable(
+  tabla_metodos_imagenes,
+  caption = "Frecuencia de métodos HTTP sobre recursos de tipo imagen:"
+)
+```
+
+### -----------------------------------------------------------------------------------------
+
+## Visualización de Resultados
+
+#### 6. Generar al menos 2 gráficos distintos que permitan visualizar alguna característica relevante de los datos analizados.
+
+##### *Estos deberán representar por lo menos 1 o 2 variables diferentes del data frame. Describid el gráfico e indicad cualquier observación destacable que se pueda apreciar gracias a la representación gráfica.*
+
+#### 7. Generar un gráfico que permita visualizar el número de peticiones servidas a lo largo del tiempo.
